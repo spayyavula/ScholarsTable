@@ -20,7 +20,7 @@ export const BobTheBot: React.FC<BobTheBotProps> = ({
 
   const bobMessages = {
     welcome: [
-      "Welcome back to the Learning Casino! Ready to win some knowledge?",
+      "Welcome back to Scholars Table! Ready to win some knowledge?",
       "Hey there, scholar! I see you're level " + userLevel + ". Impressive!",
       "The tables are hot tonight! Which subject calls to you?"
     ],

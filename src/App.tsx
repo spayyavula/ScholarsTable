@@ -102,7 +102,7 @@ function App() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-casino-gold-400 via-casino-gold-300 to-casino-gold-500 mb-4">
-            Welcome to the Learning Casino
+            Welcome to Scholars Table
           </h1>
           <p className="text-xl text-gray-300 font-body max-w-2xl mx-auto">
             Where knowledge meets excitement! Play educational games, join tournaments, and compete with students worldwide.
@@ -126,7 +126,7 @@ function App() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Gaming Area */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Casino Games */}
+            {/* Scholar Games */}
             <CasinoTable className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center space-x-3">
@@ -135,7 +135,7 @@ function App() {
                   </div>
                   <div>
                     <h2 className="text-3xl font-heading font-bold text-white">
-                      Casino Games
+                      Scholar Games
                     </h2>
                     <p className="text-casino-green-200">
                       Choose your subject and start learning!

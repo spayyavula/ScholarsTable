@@ -131,7 +131,7 @@ export const mockTournaments: Tournament[] = [
 export const mockGames: Game[] = [
   {
     id: '1',
-    title: 'Quick Quiz Roulette',
+    title: 'Knowledge Roulette',
     description: 'Spin the wheel of knowledge! Answer random questions to win coins.',
     subject: 'mathematics',
     difficulty: 'basic',
@@ -142,8 +142,8 @@ export const mockGames: Game[] = [
   },
   {
     id: '2',
-    title: 'Physics Poker',
-    description: 'Bluff your way through physics concepts in this strategic card game.',
+    title: 'Physics Challenge',
+    description: 'Test your physics knowledge in this strategic challenge game.',
     subject: 'physics',
     difficulty: 'intermediate',
     type: 'challenge',
@@ -153,8 +153,8 @@ export const mockGames: Game[] = [
   },
   {
     id: '3',
-    title: 'Chemistry Slots',
-    description: 'Match molecular structures to win big in this exciting slot machine.',
+    title: 'Chemistry Quest',
+    description: 'Match molecular structures to win big in this exciting puzzle game.',
     subject: 'chemistry',
     difficulty: 'advanced',
     type: 'puzzle',

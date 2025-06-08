@@ -23,11 +23,11 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
             whileHover={{ scale: 1.05 }}
           >
             <div className="w-12 h-12 bg-gradient-to-br from-casino-gold-400 to-casino-gold-600 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🎰</span>
+              <span className="text-2xl">📚</span>
             </div>
             <div>
               <h1 className="text-2xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-casino-gold-400 to-casino-gold-200">
-                Learning Casino
+                Scholars Table
               </h1>
               <p className="text-xs text-gray-400 font-body">Where Education Meets Gaming</p>
             </div>
