@@ -30,6 +30,14 @@ export const mockUser: User = {
       description: 'Completed advanced physics challenges',
       icon: '⚡',
       earned: false
+    },
+    {
+      id: '4',
+      title: 'Chemistry Champion',
+      description: 'Mastered molecular structures',
+      icon: '🧪',
+      earned: true,
+      earnedAt: new Date('2024-01-25')
     }
   ],
   stats: {
@@ -56,6 +64,39 @@ export const mockQuestions: Question[] = [
   },
   {
     id: '2',
+    subject: 'mathematics',
+    difficulty: 'intermediate',
+    question: 'What is the derivative of x³ + 2x² - 5x + 3?',
+    options: ['3x² + 4x - 5', '3x² + 2x - 5', 'x² + 4x - 5', '3x² + 4x + 5'],
+    correctAnswer: 0,
+    explanation: 'Using the power rule: d/dx(x³) = 3x², d/dx(2x²) = 4x, d/dx(-5x) = -5, d/dx(3) = 0. So the derivative is 3x² + 4x - 5.',
+    xpReward: 75,
+    coinReward: 15
+  },
+  {
+    id: '3',
+    subject: 'mathematics',
+    difficulty: 'advanced',
+    question: 'What is the limit of (sin x)/x as x approaches 0?',
+    options: ['0', '1', '∞', 'undefined'],
+    correctAnswer: 1,
+    explanation: 'This is a fundamental limit in calculus. lim(x→0) (sin x)/x = 1. This can be proven using the squeeze theorem or L\'Hôpital\'s rule.',
+    xpReward: 100,
+    coinReward: 25
+  },
+  {
+    id: '4',
+    subject: 'physics',
+    difficulty: 'basic',
+    question: 'What is the formula for kinetic energy?',
+    options: ['KE = mv²', 'KE = ½mv²', 'KE = m²v', 'KE = 2mv'],
+    correctAnswer: 1,
+    explanation: 'Kinetic energy is the energy of motion. The formula is KE = ½mv², where m is mass and v is velocity.',
+    xpReward: 50,
+    coinReward: 10
+  },
+  {
+    id: '5',
     subject: 'physics',
     difficulty: 'intermediate',
     question: 'What is the speed of light in vacuum?',
@@ -66,7 +107,40 @@ export const mockQuestions: Question[] = [
     coinReward: 15
   },
   {
-    id: '3',
+    id: '6',
+    subject: 'physics',
+    difficulty: 'advanced',
+    question: 'What is the Heisenberg Uncertainty Principle?',
+    options: ['Δx·Δp ≥ ℏ/2', 'Δx·Δp = ℏ', 'Δx·Δp ≤ ℏ/2', 'Δx·Δp = ℏ/2'],
+    correctAnswer: 0,
+    explanation: 'The Heisenberg Uncertainty Principle states that Δx·Δp ≥ ℏ/2, where Δx is position uncertainty, Δp is momentum uncertainty, and ℏ is reduced Planck constant.',
+    xpReward: 100,
+    coinReward: 25
+  },
+  {
+    id: '7',
+    subject: 'chemistry',
+    difficulty: 'basic',
+    question: 'What is the chemical symbol for Gold?',
+    options: ['Go', 'Gd', 'Au', 'Ag'],
+    correctAnswer: 2,
+    explanation: 'Gold\'s chemical symbol is Au, derived from the Latin word "aurum" meaning gold.',
+    xpReward: 50,
+    coinReward: 10
+  },
+  {
+    id: '8',
+    subject: 'chemistry',
+    difficulty: 'intermediate',
+    question: 'What is the pH of pure water at 25°C?',
+    options: ['6', '7', '8', '14'],
+    correctAnswer: 1,
+    explanation: 'Pure water at 25°C has a pH of 7, which is considered neutral. This is because [H⁺] = [OH⁻] = 1×10⁻⁷ M.',
+    xpReward: 75,
+    coinReward: 15
+  },
+  {
+    id: '9',
     subject: 'chemistry',
     difficulty: 'advanced',
     question: 'What is the electron configuration of Iron (Fe)?',
@@ -125,23 +199,58 @@ export const mockTournaments: Tournament[] = [
     isSponsored: true,
     sponsor: 'Quantum Labs',
     status: 'upcoming'
+  },
+  {
+    id: '3',
+    title: 'Chemistry Championship',
+    description: 'Master molecular structures and chemical reactions!',
+    subject: 'chemistry',
+    difficulty: 'intermediate',
+    startTime: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours from now
+    endTime: new Date(Date.now() + 16 * 60 * 60 * 1000), // 16 hours from now
+    prize: 6000,
+    participants: [
+      {
+        userId: '3',
+        name: 'Marie Curie Jr.',
+        avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=50&h=50&fit=crop',
+        score: 980,
+        questionsAnswered: 12,
+        correctAnswers: 10,
+        timeSpent: 360
+      }
+    ],
+    isSponsored: true,
+    sponsor: 'ChemLab Institute',
+    status: 'active'
   }
 ];
 
 export const mockGames: Game[] = [
   {
     id: '1',
-    title: 'Knowledge Roulette',
-    description: 'Spin the wheel of knowledge! Answer random questions to win coins.',
+    title: 'Mathematics Mastery',
+    description: 'From basic arithmetic to advanced calculus - test your mathematical prowess!',
     subject: 'mathematics',
     difficulty: 'basic',
     type: 'quiz',
     minBet: 10,
     maxBet: 100,
-    icon: '🎰'
+    icon: '🧮'
   },
   {
     id: '2',
+    title: 'Advanced Math Challenge',
+    description: 'Tackle complex mathematical concepts including calculus, algebra, and geometry.',
+    subject: 'mathematics',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 50,
+    maxBet: 500,
+    icon: '📐'
+  },
+  {
+    id: '3',
     title: 'Physics Challenge',
     description: 'Test your physics knowledge in this strategic challenge game.',
     subject: 'physics',
@@ -149,17 +258,39 @@ export const mockGames: Game[] = [
     type: 'challenge',
     minBet: 25,
     maxBet: 250,
-    icon: '🃏'
+    icon: '⚡'
   },
   {
-    id: '3',
+    id: '4',
+    title: 'Quantum Physics Quest',
+    description: 'Dive deep into the mysterious world of quantum mechanics and relativity.',
+    subject: 'physics',
+    difficulty: 'advanced',
+    type: 'puzzle',
+    minBet: 75,
+    maxBet: 750,
+    icon: '🔬'
+  },
+  {
+    id: '5',
     title: 'Chemistry Quest',
     description: 'Match molecular structures to win big in this exciting puzzle game.',
     subject: 'chemistry',
-    difficulty: 'advanced',
+    difficulty: 'intermediate',
     type: 'puzzle',
-    minBet: 50,
-    maxBet: 500,
-    icon: '🎲'
+    minBet: 30,
+    maxBet: 300,
+    icon: '🧪'
+  },
+  {
+    id: '6',
+    title: 'Organic Chemistry Lab',
+    description: 'Master complex organic reactions and molecular synthesis pathways.',
+    subject: 'chemistry',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 60,
+    maxBet: 600,
+    icon: '⚗️'
   }
 ];
