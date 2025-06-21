@@ -78,7 +78,7 @@ export interface Game {
 }
 
 export type Subject = 'mathematics' | 'physics' | 'chemistry';
-export type Subject = 'mathematics' | 'physics' | 'chemistry' | 'html' | 'css' | 'javascript' | 'python';
+export type Subject = 'mathematics' | 'physics' | 'chemistry' | 'html' | 'css' | 'javascript' | 'python' | 'react' | 'angular' | 'vue' | 'react-native';
 export type Difficulty = 'basic' | 'intermediate' | 'advanced';
 export type GameType = 'quiz' | 'puzzle' | 'challenge' | 'tournament';
 
@@ -86,7 +86,7 @@ export interface CodingQuestion extends Question {
   codeTemplate?: string;
   expectedOutput?: string;
   testCases?: TestCase[];
-  language: 'html' | 'css' | 'javascript' | 'python' | 'tailwind';
+  language: 'html' | 'css' | 'javascript' | 'python' | 'tailwind' | 'typescript';
 }
 
 export interface TestCase {
@@ -97,7 +97,7 @@ export interface TestCase {
 
 export interface BobMessage {
   id: string;
-  type: 'tip' | 'encouragement' | 'celebration' | 'hint';
+  type: 'tips' | 'encouragement' | 'celebration' | 'hints';
   message: string;
   timestamp: Date;
 }

@@ -269,37 +269,71 @@ export const mockQuestions: Question[] = [
   },
   {
     id: '16',
-    subject: 'javascript',
+    subject: 'react',
     difficulty: 'advanced',
-    question: 'What is a closure in JavaScript?',
+    question: 'What is the purpose of the useEffect hook in React?',
     options: [
-      'A way to close browser windows',
-      'A function that has access to variables in its outer scope',
-      'A method to end function execution',
-      'A type of loop structure'
+      'To manage component state',
+      'To perform side effects in functional components',
+      'To create class components',
+      'To handle form submissions'
     ],
     correctAnswer: 1,
-    explanation: 'A closure is a function that has access to variables in its outer (enclosing) scope even after the outer function has returned. This allows for data privacy and function factories.',
+    explanation: 'useEffect is used to perform side effects in functional components, such as data fetching, subscriptions, or manually changing the DOM.',
     xpReward: 100,
     coinReward: 25,
-    hint: 'Think about a function that "closes over" variables from its surrounding environment, keeping them accessible!'
+    hint: 'Think about what happens after a component renders - side effects like API calls, timers, or DOM updates!'
   },
   {
     id: '17',
-    subject: 'python',
+    subject: 'angular',
     difficulty: 'advanced',
-    question: 'What does the @property decorator do in Python?',
+    question: 'What is dependency injection in Angular?',
     options: [
-      'Creates a private variable',
-      'Allows a method to be accessed like an attribute',
-      'Defines a class property',
-      'Creates a static method'
+      'A way to inject HTML into components',
+      'A design pattern for providing dependencies to classes',
+      'A method to inject CSS styles',
+      'A technique for code injection attacks'
     ],
     correctAnswer: 1,
-    explanation: 'The @property decorator allows you to define a method that can be accessed like an attribute, providing a way to implement getters and setters in a Pythonic way.',
+    explanation: 'Dependency injection is a design pattern where dependencies are provided to a class rather than the class creating them itself. Angular\'s DI system manages this automatically.',
     xpReward: 100,
     coinReward: 25,
-    hint: 'This decorator makes a method behave like a simple attribute - you can access it without parentheses!'
+    hint: 'Think about how services are provided to components - they are "injected" rather than manually created!'
+  },
+  {
+    id: '18',
+    subject: 'vue',
+    difficulty: 'intermediate',
+    question: 'What is the difference between v-if and v-show in Vue.js?',
+    options: [
+      'v-if is for loops, v-show is for conditions',
+      'v-if conditionally renders, v-show conditionally displays',
+      'v-if is faster, v-show is slower',
+      'There is no difference'
+    ],
+    correctAnswer: 1,
+    explanation: 'v-if conditionally renders elements (adds/removes from DOM), while v-show conditionally displays elements (toggles CSS display property).',
+    xpReward: 75,
+    coinReward: 15,
+    hint: 'Think about DOM manipulation vs CSS styling - one adds/removes elements, the other just hides/shows them!'
+  },
+  {
+    id: '19',
+    subject: 'react-native',
+    difficulty: 'basic',
+    question: 'Which component is used for scrollable content in React Native?',
+    options: [
+      '<Scroll>',
+      '<ScrollView>',
+      '<ScrollableView>',
+      '<View scroll={true}>'
+    ],
+    correctAnswer: 1,
+    explanation: 'ScrollView is the React Native component used to create scrollable content areas when content exceeds the screen size.',
+    xpReward: 50,
+    coinReward: 10,
+    hint: 'The component name is very descriptive - it\'s a View that can Scroll!'
   }
 ];
 
@@ -783,13 +817,46 @@ export const mockGames: Game[] = [
   },
   {
     id: '19',
-    title: 'Full-Stack Web Development',
-    description: 'Complex web applications combining HTML, CSS, JavaScript, and APIs.',
-    subject: 'html',
+    title: 'React.js Mastery',
+    description: 'Master React hooks, state management, and component architecture.',
+    subject: 'react',
     difficulty: 'advanced',
     type: 'challenge',
     minBet: 70,
     maxBet: 700,
-    icon: '💻'
+    icon: '⚛️'
+  },
+  {
+    id: '20',
+    title: 'Angular Development',
+    description: 'Build enterprise applications with Angular framework and TypeScript.',
+    subject: 'angular',
+    difficulty: 'intermediate',
+    type: 'challenge',
+    minBet: 40,
+    maxBet: 400,
+    icon: '🅰️'
+  },
+  {
+    id: '21',
+    title: 'Vue.js Fundamentals',
+    description: 'Learn Vue.js reactive programming and component composition.',
+    subject: 'vue',
+    difficulty: 'basic',
+    type: 'quiz',
+    minBet: 25,
+    maxBet: 250,
+    icon: '💚'
+  },
+  {
+    id: '22',
+    title: 'React Native Apps',
+    description: 'Build cross-platform mobile applications with React Native.',
+    subject: 'react-native',
+    difficulty: 'intermediate',
+    type: 'challenge',
+    minBet: 50,
+    maxBet: 500,
+    icon: '📱'
   }
 ];

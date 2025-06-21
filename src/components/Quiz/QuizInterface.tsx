@@ -5,6 +5,11 @@ import { Question, BobMessage } from '../../types';
 import { TailwindCodeEditor } from './TailwindCodeEditor';
 import { tailwindQuestions } from '../../data/tailwindQuestions';
 import { InteractiveCodeEditor } from './InteractiveCodeEditor';
+import { ReactCodeEditor } from './ReactCodeEditor';
+import { AngularCodeEditor } from './AngularCodeEditor';
+import { VueCodeEditor } from './VueCodeEditor';
+import { ReactNativeCodeEditor } from './ReactNativeCodeEditor';
+import { reactQuestions, angularQuestions, vueQuestions, reactNativeQuestions } from '../../data/frameworkQuestions';
 
 interface QuizInterfaceProps {
   questions: Question[];
@@ -40,7 +45,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
 
   // Check if current question is a coding question
   const isCodingQuestion = (question: Question): boolean => {
-    return ['html', 'css', 'javascript', 'python'].includes(question.subject);
+    return ['html', 'css', 'javascript', 'python', 'react', 'angular', 'vue', 'react-native'].includes(question.subject);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -108,10 +113,33 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
   };
 
   const handleStartCodingChallenge = () => {
-    // For demo purposes, use the first Tailwind question
-    const codingQuestion = tailwindQuestions[0];
-    setCurrentCodingQuestion(codingQuestion);
-    setShowCodeEditor(true);
+    // Choose appropriate coding challenge based on subject
+    let codingQuestion;
+    switch (currentQuestion.subject) {
+      case 'html':
+      case 'css':
+        codingQuestion = tailwindQuestions[0];
+        break;
+      case 'react':
+        codingQuestion = reactQuestions[0];
+        break;
+      case 'angular':
+        codingQuestion = angularQuestions[0];
+        break;
+      case 'vue':
+        codingQuestion = vueQuestions[0];
+        break;
+      case 'react-native':
+        codingQuestion = reactNativeQuestions[0];
+        break;
+      default:
+        codingQuestion = tailwindQuestions[0];
+    }
+    
+    if (codingQuestion) {
+      setCurrentCodingQuestion(codingQuestion);
+      setShowCodeEditor(true);
+    }
   };
 
   const handleTailwindCodingComplete = (isCorrect: boolean, userCode: string) => {
@@ -132,17 +160,59 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
   };
 
   if (showCodeEditor && currentCodingQuestion) {
-    return (
-      <TailwindCodeEditor
-        question={currentCodingQuestion}
-        onComplete={handleTailwindCodingComplete}
-        onTriggerBobMessage={onTriggerBobMessage}
-        onClose={() => {
-          setShowCodeEditor(false);
-          setCurrentCodingQuestion(null);
-        }}
-      />
-    );
+    // Render appropriate code editor based on question subject
+    const closeEditor = () => {
+      setShowCodeEditor(false);
+      setCurrentCodingQuestion(null);
+    };
+
+    switch (currentQuestion.subject) {
+      case 'react':
+        return (
+          <ReactCodeEditor
+            question={currentCodingQuestion}
+            onComplete={handleTailwindCodingComplete}
+            onTriggerBobMessage={onTriggerBobMessage}
+            onClose={closeEditor}
+          />
+        );
+      case 'angular':
+        return (
+          <AngularCodeEditor
+            question={currentCodingQuestion}
+            onComplete={handleTailwindCodingComplete}
+            onTriggerBobMessage={onTriggerBobMessage}
+            onClose={closeEditor}
+          />
+        );
+      case 'vue':
+        return (
+          <VueCodeEditor
+            question={currentCodingQuestion}
+            onComplete={handleTailwindCodingComplete}
+            onTriggerBobMessage={onTriggerBobMessage}
+            onClose={closeEditor}
+          />
+        );
+      case 'react-native':
+        return (
+          <ReactNativeCodeEditor
+            question={currentCodingQuestion}
+            onComplete={handleTailwindCodingComplete}
+            onTriggerBobMessage={onTriggerBobMessage}
+            onClose={closeEditor}
+          />
+        );
+      default:
+        return (
+          <TailwindCodeEditor
+            question={currentCodingQuestion}
+            onComplete={handleTailwindCodingComplete}
+            onTriggerBobMessage={onTriggerBobMessage}
+            onClose={closeEditor}
+          />
+        );
+    }
   }
 
   // Handle general coding question completion
@@ -225,14 +295,20 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
               )}
               
               {/* Coding Challenge Button */}
-              {(currentQuestion.subject === 'html' || currentQuestion.subject === 'css' || currentQuestion.subject === 'javascript') && (
+              {(['html', 'css', 'javascript', 'react', 'angular', 'vue', 'react-native'].includes(currentQuestion.subject)) && (
                 <motion.button
                   onClick={handleStartCodingChallenge}
                   className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg transition-all duration-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="text-sm font-medium">🎨 Try Tailwind Challenge</span>
+                  <span className="text-sm font-medium">
+                    {currentQuestion.subject === 'react' && '⚛️ Try React Challenge'}
+                    {currentQuestion.subject === 'angular' && '🅰️ Try Angular Challenge'}
+                    {currentQuestion.subject === 'vue' && '💚 Try Vue Challenge'}
+                    {currentQuestion.subject === 'react-native' && '📱 Try React Native Challenge'}
+                    {(['html', 'css', 'javascript'].includes(currentQuestion.subject)) && '🎨 Try Tailwind Challenge'}
+                  </span>
                 </motion.button>
               )}
               
