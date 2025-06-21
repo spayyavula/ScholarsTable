@@ -1,13 +1,14 @@
 import React from 'react';
-import { User, Coins, Trophy, Settings } from 'lucide-react';
+import { User, Coins, Trophy, Settings, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { User as UserType } from '../../types';
 
 interface HeaderProps {
   user: UserType;
+  onOpenSATResources?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ user }) => {
+export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
   return (
     <motion.header 
       className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-2xl border-b border-casino-gold-600/30"
@@ -35,6 +36,19 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
 
           {/* User Info */}
           <div className="flex items-center space-x-6">
+            {/* SAT Resources Button */}
+            {onOpenSATResources && (
+              <motion.button
+                onClick={onOpenSATResources}
+                className="flex items-center space-x-2 bg-indigo-600/20 px-4 py-2 rounded-full border border-indigo-600/30 hover:bg-indigo-600/30 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <BookOpen className="w-4 h-4 text-indigo-400" />
+                <span className="text-indigo-200 font-medium text-sm">SAT Prep</span>
+              </motion.button>
+            )}
+            
             {/* Coins */}
             <motion.div 
               className="flex items-center space-x-2 bg-casino-gold-600/20 px-4 py-2 rounded-full border border-casino-gold-600/30"

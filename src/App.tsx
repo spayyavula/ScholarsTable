@@ -14,10 +14,11 @@ import { SubscriptionPlans } from './components/Subscription/SubscriptionPlans';
 import { StripeCheckout } from './components/Subscription/StripeCheckout';
 import { NewsletterSignup } from './components/Marketing/NewsletterSignup';
 import { ConstantContactIntegration } from './components/Marketing/ConstantContactIntegration';
+import { SATResources } from './components/Resources/SATResources';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp } from 'lucide-react';
 
 function App() {
-  const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing'>('lobby');
+  const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing' | 'sat-resources'>('lobby');
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [user, setUser] = useState(mockUser);
   const [currentBobMessage, setCurrentBobMessage] = useState<BobMessage | null>(null);
@@ -163,6 +164,11 @@ function App() {
     triggerBobMessage('tips', 'Explore our marketing dashboard powered by Constant Contact!');
   };
 
+  const handleOpenSATResources = () => {
+    setCurrentView('sat-resources');
+    triggerBobMessage('tips', 'Explore comprehensive SAT preparation resources from Khan Academy, College Board, and more!');
+  };
+
   const stats = [
     {
       title: 'Total XP',
@@ -254,9 +260,17 @@ function App() {
     );
   }
 
+  if (currentView === 'sat-resources') {
+    return (
+      <SATResources
+        onClose={() => setCurrentView('lobby')}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <Header user={user} />
+      <Header user={user} onOpenSATResources={handleOpenSATResources} />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
@@ -314,6 +328,16 @@ function App() {
             >
               <span>📊</span>
               <span>Marketing Dashboard</span>
+            </motion.button>
+            
+            <motion.button
+              onClick={handleOpenSATResources}
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>📚</span>
+              <span>SAT Resources</span>
             </motion.button>
           </div>
         </motion.div>
