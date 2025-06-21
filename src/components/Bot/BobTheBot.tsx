@@ -22,27 +22,37 @@ export const BobTheBot: React.FC<BobTheBotProps> = ({
     welcome: [
       "Welcome back to Scholars Table! Ready to win some knowledge?",
       "Hey there, scholar! I see you're level " + userLevel + ". Impressive!",
-      "The tables are hot tonight! Which subject calls to you?"
+      "The tables are hot tonight! Which subject calls to you?",
+      "Ready to code your way to victory? Our programming challenges await!",
+      "From HTML to Python, we've got all the coding skills you need!"
     ],
     encouragement: [
       "Don't worry about that wrong answer - every mistake is a learning opportunity!",
       "You're getting better with each question. Keep it up!",
-      "Remember, even Einstein made mistakes. What matters is that you keep trying!"
+      "Remember, even Einstein made mistakes. What matters is that you keep trying!",
+      "Debugging is just another word for learning! Keep coding!",
+      "Every programmer started with their first 'Hello World' - you're doing great!"
     ],
     celebration: [
       "Fantastic! You're on fire! 🔥",
       "That's what I call a winning streak! Well done!",
-      "You just earned some serious bragging rights!"
+      "You just earned some serious bragging rights!",
+      "Your code is as clean as your answers! Excellent work!",
+      "You're coding like a pro! Keep up the amazing work!"
     ],
     tips: [
       "Pro tip: Take your time to read each question carefully before answering.",
       "Did you know? Playing different difficulty levels helps reinforce concepts!",
-      "Tournament strategy: Focus on accuracy over speed for better scores."
+      "Tournament strategy: Focus on accuracy over speed for better scores.",
+      "Coding tip: Practice makes perfect - try different programming languages!",
+      "Remember: Good code is readable code. Think about clarity and structure!"
     ],
     hints: [
       "Having trouble? Try breaking the problem into smaller parts.",
       "Remember to check the units in physics problems - they often hold clues!",
-      "For chemistry questions, think about electron configurations step by step."
+      "For chemistry questions, think about electron configurations step by step.",
+      "For coding questions, think about the syntax and logic step by step.",
+      "HTML tip: Remember that structure comes first, then styling with CSS!"
     ]
   };
 

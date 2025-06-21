@@ -23,6 +23,10 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
       case 'mathematics': return '🧮';
       case 'physics': return '⚡';
       case 'chemistry': return '🧪';
+      case 'html': return '🌐';
+      case 'css': return '🎨';
+      case 'javascript': return '⚡';
+      case 'python': return '🐍';
       default: return '📚';
     }
   };

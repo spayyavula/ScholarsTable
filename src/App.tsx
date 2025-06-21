@@ -181,10 +181,18 @@ function App() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                {['Mathematics', 'Physics', 'Chemistry'].map((subject, index) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { name: 'Mathematics', emoji: '🧮', color: 'bg-green-500' },
+                  { name: 'Physics', emoji: '⚡', color: 'bg-blue-500' },
+                  { name: 'Chemistry', emoji: '🧪', color: 'bg-purple-500' },
+                  { name: 'HTML', emoji: '🌐', color: 'bg-orange-500' },
+                  { name: 'CSS', emoji: '🎨', color: 'bg-blue-600' },
+                  { name: 'JavaScript', emoji: '⚡', color: 'bg-yellow-500' },
+                  { name: 'Python', emoji: '🐍', color: 'bg-green-600' }
+                ].map((subject, index) => (
                   <motion.div
-                    key={subject}
+                    key={subject.name}
                     className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/30"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -192,16 +200,12 @@ function App() {
                   >
                     <div className="text-center">
                       <div className="text-4xl mb-3">
-                        {subject === 'Mathematics' ? '🧮' : 
-                         subject === 'Physics' ? '⚡' : '🧪'}
+                        {subject.emoji}
                       </div>
-                      <h3 className="text-lg font-semibold text-white mb-2">{subject}</h3>
+                      <h3 className="text-lg font-semibold text-white mb-2">{subject.name}</h3>
                       <div className="bg-gray-700 rounded-full h-2 mb-2">
                         <div 
-                          className={`h-full rounded-full ${
-                            subject === 'Mathematics' ? 'bg-green-500' :
-                            subject === 'Physics' ? 'bg-blue-500' : 'bg-purple-500'
-                          }`}
+                          className={`h-full rounded-full ${subject.color}`}
                           style={{ width: `${Math.random() * 80 + 20}%` }}
                         />
                       </div>

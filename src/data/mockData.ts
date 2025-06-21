@@ -38,6 +38,36 @@ export const mockUser: User = {
       icon: '🧪',
       earned: true,
       earnedAt: new Date('2024-01-25')
+    },
+    {
+      id: '5',
+      title: 'HTML Hero',
+      description: 'Built your first webpage',
+      icon: '🌐',
+      earned: true,
+      earnedAt: new Date('2024-01-28')
+    },
+    {
+      id: '6',
+      title: 'CSS Stylist',
+      description: 'Created beautiful designs',
+      icon: '🎨',
+      earned: false
+    },
+    {
+      id: '7',
+      title: 'JavaScript Jedi',
+      description: 'Mastered dynamic programming',
+      icon: '⚡',
+      earned: false
+    },
+    {
+      id: '8',
+      title: 'Python Programmer',
+      description: 'Solved 50 Python challenges',
+      icon: '🐍',
+      earned: true,
+      earnedAt: new Date('2024-02-01')
     }
   ],
   stats: {
@@ -292,5 +322,72 @@ export const mockGames: Game[] = [
     minBet: 60,
     maxBet: 600,
     icon: '⚗️'
+  },
+  // Coding Games
+  {
+    id: '7',
+    title: 'HTML Fundamentals',
+    description: 'Master the building blocks of the web with HTML structure and semantics.',
+    subject: 'html',
+    difficulty: 'basic',
+    type: 'quiz',
+    minBet: 15,
+    maxBet: 150,
+    icon: '🌐'
+  },
+  {
+    id: '8',
+    title: 'CSS Styling Master',
+    description: 'Create beautiful, responsive designs with advanced CSS techniques.',
+    subject: 'css',
+    difficulty: 'intermediate',
+    type: 'challenge',
+    minBet: 25,
+    maxBet: 250,
+    icon: '🎨'
+  },
+  {
+    id: '9',
+    title: 'JavaScript Ninja',
+    description: 'Become a JavaScript expert with advanced programming concepts and ES6+.',
+    subject: 'javascript',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 50,
+    maxBet: 500,
+    icon: '⚡'
+  },
+  {
+    id: '10',
+    title: 'Python Programming',
+    description: 'Learn Python from basics to advanced concepts including data structures.',
+    subject: 'python',
+    difficulty: 'intermediate',
+    type: 'quiz',
+    minBet: 30,
+    maxBet: 300,
+    icon: '🐍'
+  },
+  {
+    id: '11',
+    title: 'Web Development Bootcamp',
+    description: 'Full-stack web development challenge combining HTML, CSS, and JavaScript.',
+    subject: 'javascript',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 75,
+    maxBet: 750,
+    icon: '💻'
+  },
+  {
+    id: '12',
+    title: 'Python Data Science',
+    description: 'Advanced Python for data analysis, algorithms, and machine learning concepts.',
+    subject: 'python',
+    difficulty: 'advanced',
+    type: 'puzzle',
+    minBet: 60,
+    maxBet: 600,
+    icon: '📊'
   }
 ];
