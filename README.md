@@ -29,6 +29,18 @@ Welcome to **Scholars Table**, where education meets gaming! This is a comprehen
 - **Live Preview**: See your code in action immediately
 - **Framework-specific Templates**: Pre-built templates for React, Angular, Vue, etc.
 
+### 💳 Subscription & Monetization
+- **Stripe Integration**: Secure payment processing with multiple plan tiers
+- **Flexible Pricing**: Free, Pro, Elite, and Enterprise plans
+- **Subscription Management**: Easy upgrades, downgrades, and cancellations
+- **Customer Portal**: Self-service billing management
+
+### 📧 Email Marketing
+- **Constant Contact Integration**: Professional email marketing automation
+- **Newsletter Management**: Segmented contact lists and targeted campaigns
+- **Automated Sequences**: Welcome series, course completion, and re-engagement
+- **Analytics Dashboard**: Track open rates, click rates, and subscriber growth
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -58,6 +70,26 @@ Welcome to **Scholars Table**, where education meets gaming! This is a comprehen
    Navigate to `http://localhost:5173` to start learning!
 
 ## 🗄️ Database Integration with Supabase
+
+### 🎨 Visual Schema Designer
+
+Scholars Table includes a comprehensive visual database schema designer that helps beginners learn database design fundamentals while creating production-ready Supabase schemas.
+
+#### Features:
+- **Drag & Drop Interface**: Visually design your database schema
+- **Interactive Table Editor**: Add/edit tables and columns with proper data types
+- **Relationship Mapping**: Create foreign key relationships between tables
+- **SQL Generation**: Generate Supabase-ready SQL with RLS policies
+- **Best Practices Validation**: Real-time feedback on schema design
+- **Educational Tutorials**: Step-by-step learning guides
+
+#### How to Use:
+1. Click "Try Schema Designer" from the main dashboard
+2. Add tables using the sidebar
+3. Define columns with appropriate data types
+4. Create relationships between tables
+5. Generate and export SQL for Supabase
+6. Validate your design against best practices
 
 This platform is designed to work seamlessly with **Supabase**, providing a complete backend solution for user management, progress tracking, and real-time features.
 
@@ -200,6 +232,131 @@ CREATE TABLE tournament_participants (
 ```
 
 ### Setting Up Supabase
+
+### 💳 Stripe Integration Setup
+
+#### 1. Create a Stripe Account
+
+1. Go to [stripe.com](https://stripe.com) and create an account
+2. Complete your account setup and verification
+3. Navigate to the Developers section in your dashboard
+
+#### 2. Configure Stripe Products and Prices
+
+Create your subscription products in the Stripe dashboard:
+
+```bash
+# Example products to create:
+- Scholar Pro ($9.99/month)
+- Scholar Elite ($19.99/month)
+- Scholar Pro Yearly ($95.99/year) # 20% discount
+- Scholar Elite Yearly ($191.99/year) # 20% discount
+```
+
+#### 3. Set Up Environment Variables
+
+Add to your `.env.local` file:
+
+```env
+# Stripe Configuration
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Price IDs from Stripe Dashboard
+STRIPE_PRICE_PRO_MONTHLY=price_...
+STRIPE_PRICE_PRO_YEARLY=price_...
+STRIPE_PRICE_PREMIUM_MONTHLY=price_...
+STRIPE_PRICE_PREMIUM_YEARLY=price_...
+```
+
+#### 4. Backend API Routes
+
+Create the following API routes in your backend:
+
+```typescript
+// /api/stripe/create-checkout-session
+// /api/stripe/create-payment-intent
+// /api/stripe/webhook
+// /api/stripe/customer-portal
+// /api/stripe/cancel-subscription
+```
+
+#### 5. Webhook Configuration
+
+1. In your Stripe dashboard, go to Webhooks
+2. Add endpoint: `https://yourdomain.com/api/stripe/webhook`
+3. Select events to listen for:
+   - `customer.subscription.created`
+   - `customer.subscription.updated`
+   - `customer.subscription.deleted`
+   - `invoice.payment_succeeded`
+   - `invoice.payment_failed`
+
+### 📧 Constant Contact Integration Setup
+
+#### 1. Create a Constant Contact Account
+
+1. Go to [constantcontact.com](https://constantcontact.com) and sign up
+2. Complete your account setup and verification
+3. Navigate to the API section in your account settings
+
+#### 2. Generate API Credentials
+
+1. Create a new application in the Constant Contact developer portal
+2. Get your API key and access token
+3. Set up OAuth 2.0 for secure authentication
+
+#### 3. Configure Environment Variables
+
+Add to your `.env.local` file:
+
+```env
+# Constant Contact Configuration
+CONSTANT_CONTACT_API_KEY=your_api_key
+CONSTANT_CONTACT_ACCESS_TOKEN=your_access_token
+CONSTANT_CONTACT_CLIENT_ID=your_client_id
+CONSTANT_CONTACT_CLIENT_SECRET=your_client_secret
+```
+
+#### 4. Set Up Contact Lists
+
+Create the following lists in your Constant Contact account:
+- Newsletter Subscribers
+- Pro Subscribers
+- Premium Subscribers
+- Coding Enthusiasts
+- Tournament Participants
+- Free Trial Users
+
+#### 5. Email Templates
+
+Create email templates for:
+- Welcome series (5-email sequence)
+- Course completion notifications
+- Tournament announcements
+- Subscription confirmations
+- Payment reminders
+- Re-engagement campaigns
+
+#### 6. Automation Sequences
+
+Set up automated email sequences:
+
+```typescript
+// Welcome Series
+1. Welcome email (immediate)
+2. Getting started guide (1 day)
+3. Feature highlights (3 days)
+4. Success stories (7 days)
+5. Upgrade invitation (14 days)
+
+// Subscription Management
+1. Payment confirmation
+2. Feature access notification
+3. Monthly usage summary
+4. Renewal reminders
+```
 
 #### 1. Create a Supabase Project
 
@@ -358,6 +515,8 @@ CREATE TRIGGER trigger_update_user_level
 - **Code Editor**: Monaco Editor
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
+- **Payments**: Stripe
+- **Email Marketing**: Constant Contact
 - **Build Tool**: Vite
 - **Deployment**: Vercel/Netlify
 
@@ -371,9 +530,13 @@ src/
 │   ├── Dashboard/       # Statistics and progress
 │   ├── Layout/          # Header, navigation
 │   ├── Quiz/            # Quiz and coding interfaces
-│   └── Tournament/      # Tournament components
+│   ├── Tournament/      # Tournament components
+│   ├── Subscription/    # Stripe payment components
+│   ├── Marketing/       # Constant Contact integration
+│   └── SchemaDesigner/  # Database design tool
 ├── data/                # Mock data and questions
 ├── lib/                 # Utility functions and configs
+├── services/            # API service integrations
 ├── types/               # TypeScript type definitions
 └── styles/              # Global styles
 ```
@@ -404,6 +567,9 @@ We welcome contributions! Here's how you can help:
 - **Performance Optimization**: Make it faster and more efficient
 - **Mobile Responsiveness**: Improve mobile experience
 - **Accessibility**: Make it more inclusive
+- **Payment Integrations**: Add more payment providers
+- **Marketing Features**: Enhance email marketing capabilities
+- **Analytics**: Add more detailed tracking and reporting
 
 ## 📚 Learning Resources
 
@@ -417,10 +583,21 @@ We welcome contributions! Here's how you can help:
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
+### Payment Processing
+- [Stripe Documentation](https://stripe.com/docs)
+- [Stripe React Integration](https://stripe.com/docs/stripe-js/react)
+- [Subscription Billing Best Practices](https://stripe.com/docs/billing/subscriptions/overview)
+
+### Email Marketing
+- [Constant Contact API Documentation](https://developer.constantcontact.com/)
+- [Email Marketing Best Practices](https://www.constantcontact.com/blog/email-marketing-best-practices/)
+- [Marketing Automation Guide](https://www.constantcontact.com/blog/marketing-automation/)
+
 ### Best Practices
 - [Clean Code Principles](https://github.com/ryanmcdermott/clean-code-javascript)
 - [React Best Practices](https://react.dev/learn/thinking-in-react)
 - [Database Design Patterns](https://www.databasestar.com/database-design-patterns/)
+- [SaaS Metrics and KPIs](https://blog.hubspot.com/service/what-does-saas-stand-for)
 
 ## 🐛 Troubleshooting
 
@@ -454,6 +631,26 @@ npx tsc --noEmit
 npm update @types/react @types/react-dom
 ```
 
+#### Stripe Integration Issues
+```bash
+# Verify Stripe configuration
+echo $STRIPE_PUBLISHABLE_KEY
+echo $STRIPE_SECRET_KEY
+
+# Test webhook endpoint
+stripe listen --forward-to localhost:3000/api/stripe/webhook
+```
+
+#### Constant Contact API Issues
+```bash
+# Check API credentials
+echo $CONSTANT_CONTACT_API_KEY
+
+# Verify OAuth token
+curl -H "Authorization: Bearer $CONSTANT_CONTACT_ACCESS_TOKEN" \
+     https://api.constantcontact.com/v3/account/summary
+```
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -465,6 +662,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Tailwind CSS** for the utility-first CSS framework
 - **Monaco Editor** for the VS Code-like editing experience
 - **Lucide** for the beautiful icon set
+- **Stripe** for secure payment processing
+- **Constant Contact** for email marketing automation
 
 ## 📞 Support
 
@@ -474,9 +673,10 @@ Need help? Here's how to get support:
 2. **Issues**: Open an issue on GitHub
 3. **Discussions**: Join our community discussions
 4. **Email**: Contact us at support@scholarstable.com
+5. **Billing Support**: For subscription issues, email billing@scholarstable.com
 
 ---
 
-**Happy Learning! 🎓✨**
+**Happy Learning & Growing! 🎓✨💰**
 
-*Transform your education journey with Scholars Table - where every question is an opportunity to grow!*
+*Transform your education journey with Scholars Table - where every question is an opportunity to grow, and every subscription supports your success!*

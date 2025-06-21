@@ -7,6 +7,9 @@ export interface User {
   level: number;
   achievements: Achievement[];
   stats: UserStats;
+  subscriptionStatus?: 'free' | 'active' | 'canceled' | 'past_due';
+  subscriptionPlan?: string;
+  customerId?: string;
 }
 
 export interface Achievement {
@@ -101,4 +104,30 @@ export interface BobMessage {
   type: 'tips' | 'encouragement' | 'celebration' | 'hints';
   message: string;
   timestamp: Date;
+}
+
+export interface SubscriptionPlan {
+  id: string;
+  name: string;
+  price: number | string;
+  period: string;
+  description: string;
+  features: string[];
+  limitations: string[];
+  popular: boolean;
+  priceId: string | null;
+  color: string;
+  icon: any;
+}
+
+export interface MarketingContact {
+  id?: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  interests?: string[];
+  source?: string;
+  subscribeDate?: string;
+  lists?: string[];
+  tags?: string[];
 }

@@ -10,14 +10,19 @@ import { QuizInterface } from './components/Quiz/QuizInterface';
 import { mockUser, mockGames, mockTournaments, mockQuestions, mockCodingQuestions } from './data/mockData';
 import { Game, Tournament, Question, BobMessage } from './types';
 import { SchemaDesigner } from './components/SchemaDesigner/SchemaDesigner';
+import { SubscriptionPlans } from './components/Subscription/SubscriptionPlans';
+import { StripeCheckout } from './components/Subscription/StripeCheckout';
+import { NewsletterSignup } from './components/Marketing/NewsletterSignup';
+import { ConstantContactIntegration } from './components/Marketing/ConstantContactIntegration';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp } from 'lucide-react';
 
 function App() {
-  const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer'>('lobby');
+  const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing'>('lobby');
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [user, setUser] = useState(mockUser);
   const [currentBobMessage, setCurrentBobMessage] = useState<BobMessage | null>(null);
   const [bobMessageHistory, setBobMessageHistory] = useState<BobMessage[]>([]);
+  const [selectedPlan, setSelectedPlan] = useState<{ planId: string; priceId: string } | null>(null);
 
   const triggerBobMessage = (type: BobMessage['type'], customMessage?: string) => {
     const bobMessages = {
@@ -119,6 +124,45 @@ function App() {
     setCurrentView('lobby');
   };
 
+  const handleOpenSubscription = () => {
+    setCurrentView('subscription');
+    triggerBobMessage('tips', 'Unlock your full learning potential with our premium plans!');
+  };
+
+  const handleSelectPlan = (planId: string, priceId: string) => {
+    if (planId === 'free') {
+      triggerBobMessage('celebration', 'Welcome to Scholars Table! Start your learning journey now!');
+      setCurrentView('lobby');
+      return;
+    }
+    
+    setSelectedPlan({ planId, priceId });
+    setCurrentView('checkout');
+  };
+
+  const handleSubscriptionSuccess = (subscriptionId: string) => {
+    triggerBobMessage('celebration', 'Welcome to the premium experience! Your subscription is now active!');
+    setCurrentView('lobby');
+    setSelectedPlan(null);
+    // Update user subscription status
+    setUser(prev => ({ ...prev, subscriptionStatus: 'active' }));
+  };
+
+  const handleSubscriptionError = (error: string) => {
+    triggerBobMessage('encouragement', 'Payment failed. Please try again or contact support if the issue persists.');
+    setCurrentView('subscription');
+    setSelectedPlan(null);
+  };
+
+  const handleOpenNewsletter = () => {
+    setCurrentView('newsletter');
+  };
+
+  const handleOpenMarketing = () => {
+    setCurrentView('marketing');
+    triggerBobMessage('tips', 'Explore our marketing dashboard powered by Constant Contact!');
+  };
+
   const stats = [
     {
       title: 'Total XP',
@@ -172,6 +216,44 @@ function App() {
     return <SchemaDesigner onClose={handleCloseSchemaDesigner} />;
   }
 
+  if (currentView === 'subscription') {
+    return (
+      <SubscriptionPlans
+        onSelectPlan={handleSelectPlan}
+        onClose={() => setCurrentView('lobby')}
+      />
+    );
+  }
+
+  if (currentView === 'checkout' && selectedPlan) {
+    return (
+      <StripeCheckout
+        planId={selectedPlan.planId}
+        priceId={selectedPlan.priceId}
+        onSuccess={handleSubscriptionSuccess}
+        onCancel={() => setCurrentView('subscription')}
+        onError={handleSubscriptionError}
+      />
+    );
+  }
+
+  if (currentView === 'newsletter') {
+    return (
+      <NewsletterSignup
+        onClose={() => setCurrentView('lobby')}
+        source="main_app"
+      />
+    );
+  }
+
+  if (currentView === 'marketing') {
+    return (
+      <ConstantContactIntegration
+        onClose={() => setCurrentView('lobby')}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header user={user} />
@@ -194,13 +276,46 @@ function App() {
           {/* Schema Designer CTA */}
           <motion.button
             onClick={handleOpenSchemaDesigner}
-            className="mt-6 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto"
+            className="mt-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <span>🗄️</span>
             <span>Try Schema Designer</span>
           </motion.button>
+          
+          {/* Action Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mt-6">
+            <motion.button
+              onClick={handleOpenSubscription}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>👑</span>
+              <span>Upgrade to Pro</span>
+            </motion.button>
+            
+            <motion.button
+              onClick={handleOpenNewsletter}
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>📧</span>
+              <span>Join Newsletter</span>
+            </motion.button>
+            
+            <motion.button
+              onClick={handleOpenMarketing}
+              className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>📊</span>
+              <span>Marketing Dashboard</span>
+            </motion.button>
+          </div>
         </motion.div>
 
         {/* Statistics Dashboard */}
