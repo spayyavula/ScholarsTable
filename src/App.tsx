@@ -9,10 +9,11 @@ import { StatCard } from './components/Dashboard/StatCard';
 import { QuizInterface } from './components/Quiz/QuizInterface';
 import { mockUser, mockGames, mockTournaments, mockQuestions, mockCodingQuestions } from './data/mockData';
 import { Game, Tournament, Question, BobMessage } from './types';
+import { SchemaDesigner } from './components/SchemaDesigner/SchemaDesigner';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp } from 'lucide-react';
 
 function App() {
-  const [currentView, setCurrentView] = useState<'lobby' | 'quiz'>('lobby');
+  const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer'>('lobby');
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [user, setUser] = useState(mockUser);
   const [currentBobMessage, setCurrentBobMessage] = useState<BobMessage | null>(null);
@@ -109,6 +110,15 @@ function App() {
     setSelectedGame(null);
   };
 
+  const handleOpenSchemaDesigner = () => {
+    setCurrentView('schema-designer');
+    triggerBobMessage('tips', 'Welcome to the Schema Designer! Learn database design fundamentals while creating professional schemas.');
+  };
+
+  const handleCloseSchemaDesigner = () => {
+    setCurrentView('lobby');
+  };
+
   const stats = [
     {
       title: 'Total XP',
@@ -158,6 +168,10 @@ function App() {
     );
   }
 
+  if (currentView === 'schema-designer') {
+    return <SchemaDesigner onClose={handleCloseSchemaDesigner} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header user={user} />
@@ -176,6 +190,17 @@ function App() {
           <p className="text-xl text-gray-300 font-body max-w-2xl mx-auto">
             Where knowledge meets excitement! Play educational games, join tournaments, and compete with students worldwide.
           </p>
+          
+          {/* Schema Designer CTA */}
+          <motion.button
+            onClick={handleOpenSchemaDesigner}
+            className="mt-6 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span>🗄️</span>
+            <span>Try Schema Designer</span>
+          </motion.button>
         </motion.div>
 
         {/* Statistics Dashboard */}
