@@ -79,6 +79,7 @@ export interface Game {
 
 export type Subject = 'mathematics' | 'physics' | 'chemistry';
 export type Subject = 'mathematics' | 'physics' | 'chemistry' | 'html' | 'css' | 'javascript' | 'python' | 'react' | 'angular' | 'vue' | 'react-native';
+export type Subject = 'mathematics' | 'physics' | 'chemistry' | 'html' | 'css' | 'javascript' | 'python' | 'react' | 'angular' | 'vue' | 'react-native' | 'nodejs' | 'react-backend';
 export type Difficulty = 'basic' | 'intermediate' | 'advanced';
 export type GameType = 'quiz' | 'puzzle' | 'challenge' | 'tournament';
 

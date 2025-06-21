@@ -10,6 +10,9 @@ import { AngularCodeEditor } from './AngularCodeEditor';
 import { VueCodeEditor } from './VueCodeEditor';
 import { ReactNativeCodeEditor } from './ReactNativeCodeEditor';
 import { reactQuestions, angularQuestions, vueQuestions, reactNativeQuestions } from '../../data/frameworkQuestions';
+import { NodeJSCodeEditor } from './NodeJSCodeEditor';
+import { ReactBackendCodeEditor } from './ReactBackendCodeEditor';
+import { nodeJSQuestions, reactBackendQuestions } from '../../data/backendQuestions';
 
 interface QuizInterfaceProps {
   questions: Question[];
@@ -45,7 +48,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
 
   // Check if current question is a coding question
   const isCodingQuestion = (question: Question): boolean => {
-    return ['html', 'css', 'javascript', 'python', 'react', 'angular', 'vue', 'react-native'].includes(question.subject);
+    return ['html', 'css', 'javascript', 'python', 'react', 'angular', 'vue', 'react-native', 'nodejs', 'react-backend'].includes(question.subject);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -132,6 +135,12 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
       case 'react-native':
         codingQuestion = reactNativeQuestions[0];
         break;
+      case 'nodejs':
+        codingQuestion = nodeJSQuestions[0];
+        break;
+      case 'react-backend':
+        codingQuestion = reactBackendQuestions[0];
+        break;
       default:
         codingQuestion = tailwindQuestions[0];
     }
@@ -203,6 +212,24 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
             onClose={closeEditor}
           />
         );
+      case 'nodejs':
+        return (
+          <NodeJSCodeEditor
+            question={currentCodingQuestion}
+            onComplete={handleTailwindCodingComplete}
+            onTriggerBobMessage={onTriggerBobMessage}
+            onClose={closeEditor}
+          />
+        );
+      case 'react-backend':
+        return (
+          <ReactBackendCodeEditor
+            question={currentCodingQuestion}
+            onComplete={handleTailwindCodingComplete}
+            onTriggerBobMessage={onTriggerBobMessage}
+            onClose={closeEditor}
+          />
+        );
       default:
         return (
           <TailwindCodeEditor
@@ -231,6 +258,38 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
 
   // If current question is a coding question, show the interactive editor
   if (isCodingQuestion(currentQuestion)) {
+    // Handle backend subjects with specialized editors
+    if (currentQuestion.subject === 'nodejs') {
+      return (
+        <NodeJSCodeEditor
+          question={{
+            ...currentQuestion,
+            language: 'javascript',
+            codeTemplate: currentQuestion.hint ? `// ${currentQuestion.hint}\n\n` : undefined
+          }}
+          onComplete={handleGeneralCodingComplete}
+          onTriggerBobMessage={onTriggerBobMessage}
+          onClose={onClose}
+        />
+      );
+    }
+    
+    if (currentQuestion.subject === 'react-backend') {
+      return (
+        <ReactBackendCodeEditor
+          question={{
+            ...currentQuestion,
+            language: 'javascript',
+            codeTemplate: currentQuestion.hint ? `// ${currentQuestion.hint}\n\n` : undefined
+          }}
+          onComplete={handleGeneralCodingComplete}
+          onTriggerBobMessage={onTriggerBobMessage}
+          onClose={onClose}
+        />
+      );
+    }
+    
+    // Default interactive code editor for other subjects
     return (
       <InteractiveCodeEditor
         question={{
@@ -295,7 +354,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
               )}
               
               {/* Coding Challenge Button */}
-              {(['html', 'css', 'javascript', 'react', 'angular', 'vue', 'react-native'].includes(currentQuestion.subject)) && (
+              {(['html', 'css', 'javascript', 'react', 'angular', 'vue', 'react-native', 'nodejs', 'react-backend'].includes(currentQuestion.subject)) && (
                 <motion.button
                   onClick={handleStartCodingChallenge}
                   className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg transition-all duration-300"
@@ -307,6 +366,8 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
                     {currentQuestion.subject === 'angular' && '🅰️ Try Angular Challenge'}
                     {currentQuestion.subject === 'vue' && '💚 Try Vue Challenge'}
                     {currentQuestion.subject === 'react-native' && '📱 Try React Native Challenge'}
+                    {currentQuestion.subject === 'nodejs' && '🚀 Try Node.js Challenge'}
+                    {currentQuestion.subject === 'react-backend' && '⚛️ Try React Backend Challenge'}
                     {(['html', 'css', 'javascript'].includes(currentQuestion.subject)) && '🎨 Try Tailwind Challenge'}
                   </span>
                 </motion.button>

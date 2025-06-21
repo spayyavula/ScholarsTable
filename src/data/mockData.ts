@@ -334,6 +334,40 @@ export const mockQuestions: Question[] = [
     xpReward: 50,
     coinReward: 10,
     hint: 'The component name is very descriptive - it\'s a View that can Scroll!'
+  },
+  {
+    id: '20',
+    subject: 'nodejs',
+    difficulty: 'basic',
+    question: 'Which method is used to create an HTTP server in Node.js?',
+    options: [
+      'http.createServer()',
+      'http.newServer()',
+      'http.makeServer()',
+      'http.buildServer()'
+    ],
+    correctAnswer: 0,
+    explanation: 'http.createServer() is the method used to create an HTTP server in Node.js. It returns a new instance of http.Server.',
+    xpReward: 50,
+    coinReward: 10,
+    hint: 'Think about the most straightforward way to "create" a server - the method name is very descriptive!'
+  },
+  {
+    id: '21',
+    subject: 'react-backend',
+    difficulty: 'intermediate',
+    question: 'In Next.js API routes, how do you access query parameters?',
+    options: [
+      'req.params',
+      'req.query',
+      'req.search',
+      'req.queryParams'
+    ],
+    correctAnswer: 1,
+    explanation: 'In Next.js API routes, query parameters are accessed through req.query. This includes both URL query strings and dynamic route parameters.',
+    xpReward: 75,
+    coinReward: 15,
+    hint: 'The property name is the same as what you\'re trying to access - query parameters!'
   }
 ];
 
@@ -858,5 +892,27 @@ export const mockGames: Game[] = [
     minBet: 50,
     maxBet: 500,
     icon: '📱'
+  },
+  {
+    id: '23',
+    title: 'Node.js Backend',
+    description: 'Build scalable server-side applications with Node.js and Express.',
+    subject: 'nodejs',
+    difficulty: 'intermediate',
+    type: 'challenge',
+    minBet: 40,
+    maxBet: 400,
+    icon: '🚀'
+  },
+  {
+    id: '24',
+    title: 'React Backend APIs',
+    description: 'Create powerful backend APIs with Next.js and server-side React.',
+    subject: 'react-backend',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 60,
+    maxBet: 600,
+    icon: '⚛️'
   }
 ];
