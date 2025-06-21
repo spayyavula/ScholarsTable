@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Star, ArrowRight, CheckCircle, XCircle, Lightbulb } from 'lucide-react';
 import { Question, BobMessage } from '../../types';
+import { TailwindCodeEditor } from './TailwindCodeEditor';
+import { tailwindQuestions } from '../../data/tailwindQuestions';
+import { InteractiveCodeEditor } from './InteractiveCodeEditor';
 
 interface QuizInterfaceProps {
   questions: Question[];
@@ -32,6 +35,13 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
   const [isAnswered, setIsAnswered] = useState(false);
   const [hintUsedForCurrentQuestion, setHintUsedForCurrentQuestion] = useState(false);
   const [startTime] = useState(Date.now());
+  const [showCodeEditor, setShowCodeEditor] = useState(false);
+  const [currentCodingQuestion, setCurrentCodingQuestion] = useState<any>(null);
+
+  // Check if current question is a coding question
+  const isCodingQuestion = (question: Question): boolean => {
+    return ['html', 'css', 'javascript', 'python'].includes(question.subject);
+  };
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -97,6 +107,74 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
     return ((currentQuestionIndex + 1) / questions.length) * 100;
   };
 
+  const handleStartCodingChallenge = () => {
+    // For demo purposes, use the first Tailwind question
+    const codingQuestion = tailwindQuestions[0];
+    setCurrentCodingQuestion(codingQuestion);
+    setShowCodeEditor(true);
+  };
+
+  const handleCodingComplete = (isCorrect: boolean, userCode: string) => {
+    if (isCorrect) {
+      setCorrectAnswers(prev => prev + 1);
+      onTriggerBobMessage('celebration', 'Excellent coding! Your Tailwind CSS skills are impressive! 🎨');
+    } else {
+      onTriggerBobMessage('encouragement', 'Good effort! Keep practicing with Tailwind CSS utilities. You\'re learning!');
+    }
+    
+    setShowCodeEditor(false);
+    setCurrentCodingQuestion(null);
+    
+    // Continue with next question or complete quiz
+    setTimeout(() => {
+      handleNextQuestion();
+    }, 1000);
+  };
+
+  if (showCodeEditor && currentCodingQuestion) {
+    return (
+      <TailwindCodeEditor
+        question={currentCodingQuestion}
+        onComplete={handleCodingComplete}
+        onTriggerBobMessage={onTriggerBobMessage}
+        onClose={() => {
+          setShowCodeEditor(false);
+          setCurrentCodingQuestion(null);
+        }}
+      />
+    );
+  }
+
+  // Handle coding question completion
+  const handleCodingComplete = (isCorrect: boolean, userCode: string) => {
+    if (isCorrect) {
+      setCorrectAnswers(prev => prev + 1);
+      onTriggerBobMessage('celebration', 'Excellent coding! Your solution works perfectly! 🎉');
+    } else {
+      onTriggerBobMessage('encouragement', 'Good attempt! Keep practicing and you\'ll get it next time! 💪');
+    }
+
+    setTimeout(() => {
+      handleNextQuestion();
+    }, 2000);
+  };
+
+  // If current question is a coding question, show the interactive editor
+  if (isCodingQuestion(currentQuestion)) {
+    return (
+      <InteractiveCodeEditor
+        question={{
+          ...currentQuestion,
+          language: currentQuestion.subject as 'html' | 'css' | 'javascript' | 'python',
+          codeTemplate: currentQuestion.hint ? `// ${currentQuestion.hint}\n\n` : undefined
+        }}
+        onComplete={handleCodingComplete}
+        onTriggerBobMessage={onTriggerBobMessage}
+        onClose={onClose}
+      />
+    );
+  }
+
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
       <motion.div
@@ -145,6 +223,19 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
                   </span>
                 </motion.button>
               )}
+              
+              {/* Coding Challenge Button */}
+              {(currentQuestion.subject === 'html' || currentQuestion.subject === 'css' || currentQuestion.subject === 'javascript') && (
+                <motion.button
+                  onClick={handleStartCodingChallenge}
+                  className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-sm font-medium">🎨 Try Tailwind Challenge</span>
+                </motion.button>
+              )}
+              
               <button
                 onClick={onClose}
                 className="text-white hover:text-gray-200 transition-colors"

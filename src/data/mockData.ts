@@ -1,4 +1,4 @@
-import { User, Question, Tournament, Game, Achievement } from '../types';
+import { User, Question, Tournament, Game, Achievement, CodingQuestion } from '../types';
 
 export const mockUser: User = {
   id: '1',
@@ -300,6 +300,206 @@ export const mockQuestions: Question[] = [
     xpReward: 100,
     coinReward: 25,
     hint: 'This decorator makes a method behave like a simple attribute - you can access it without parentheses!'
+  }
+];
+
+export const mockCodingQuestions: CodingQuestion[] = [
+  {
+    id: 'html-1',
+    subject: 'html',
+    difficulty: 'basic',
+    question: 'Create a simple HTML page with a heading, paragraph, and a link to "https://example.com"',
+    options: [], // Not used for coding questions
+    correctAnswer: 0, // Not used for coding questions
+    explanation: 'HTML uses semantic tags to structure content. The <h1> tag creates headings, <p> for paragraphs, and <a> with href attribute for links.',
+    xpReward: 75,
+    coinReward: 15,
+    hint: 'Remember to use <h1> for headings, <p> for paragraphs, and <a href="..."> for links!',
+    language: 'html',
+    codeTemplate: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+</head>
+<body>
+    <!-- Create your HTML structure here -->
+    
+</body>
+</html>`,
+    expectedOutput: 'A page with a heading, paragraph, and link to example.com'
+  },
+  {
+    id: 'css-1',
+    subject: 'css',
+    difficulty: 'basic',
+    question: 'Style the sample elements: make the heading red, the paragraph blue, and the button have a green background',
+    options: [],
+    correctAnswer: 0,
+    explanation: 'CSS uses selectors to target HTML elements. Use element selectors (h1, p, button) and the color and background-color properties.',
+    xpReward: 75,
+    coinReward: 15,
+    hint: 'Use h1 { color: red; }, p { color: blue; }, and button { background-color: green; }',
+    language: 'css',
+    codeTemplate: `/* Style the elements below */
+
+h1 {
+    /* Make the heading red */
+}
+
+p {
+    /* Make the paragraph blue */
+}
+
+button {
+    /* Give the button a green background */
+}`,
+    expectedOutput: 'Red heading, blue paragraph, green button background'
+  },
+  {
+    id: 'css-2',
+    subject: 'css',
+    difficulty: 'intermediate',
+    question: 'Create a flexbox layout that centers content both horizontally and vertically',
+    options: [],
+    correctAnswer: 0,
+    explanation: 'Flexbox provides powerful alignment capabilities. Use display: flex, justify-content: center for horizontal centering, and align-items: center for vertical centering.',
+    xpReward: 100,
+    coinReward: 20,
+    hint: 'Use display: flex, justify-content: center, and align-items: center on the container!',
+    language: 'css',
+    codeTemplate: `.container {
+    height: 100vh;
+    /* Add flexbox properties here */
+    
+}
+
+.content {
+    padding: 20px;
+    background-color: lightblue;
+    border-radius: 8px;
+}`,
+    expectedOutput: 'Content centered both horizontally and vertically'
+  },
+  {
+    id: 'js-1',
+    subject: 'javascript',
+    difficulty: 'basic',
+    question: 'Create a function that takes two numbers and returns their sum',
+    options: [],
+    correctAnswer: 0,
+    explanation: 'Functions in JavaScript are defined using the function keyword, followed by parameters in parentheses and the function body in curly braces.',
+    xpReward: 75,
+    coinReward: 15,
+    hint: 'Use function addNumbers(a, b) { return a + b; }',
+    language: 'javascript',
+    codeTemplate: `// Create a function that adds two numbers
+function addNumbers(a, b) {
+    // Your code here
+    
+}
+
+// Test your function
+console.log(addNumbers(5, 3)); // Should output 8`,
+    expectedOutput: '8',
+    testCases: [
+      { input: 'addNumbers(5, 3)', expectedOutput: '8', description: 'Adding 5 and 3' },
+      { input: 'addNumbers(10, -2)', expectedOutput: '8', description: 'Adding 10 and -2' },
+      { input: 'addNumbers(0, 0)', expectedOutput: '0', description: 'Adding 0 and 0' }
+    ]
+  },
+  {
+    id: 'js-2',
+    subject: 'javascript',
+    difficulty: 'intermediate',
+    question: 'Create a function that filters an array to return only even numbers',
+    options: [],
+    correctAnswer: 0,
+    explanation: 'Use the filter() method with a callback function that checks if a number is even using the modulo operator (%).',
+    xpReward: 100,
+    coinReward: 20,
+    hint: 'Use array.filter() with a condition that checks if number % 2 === 0',
+    language: 'javascript',
+    codeTemplate: `// Create a function that returns only even numbers from an array
+function getEvenNumbers(numbers) {
+    // Your code here
+    
+}
+
+// Test your function
+const testArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log(getEvenNumbers(testArray)); // Should output [2, 4, 6, 8, 10]`,
+    expectedOutput: '[2, 4, 6, 8, 10]',
+    testCases: [
+      { input: 'getEvenNumbers([1,2,3,4,5,6])', expectedOutput: '[2,4,6]', description: 'Filter even numbers from 1-6' },
+      { input: 'getEvenNumbers([1,3,5,7])', expectedOutput: '[]', description: 'No even numbers' },
+      { input: 'getEvenNumbers([2,4,6,8])', expectedOutput: '[2,4,6,8]', description: 'All even numbers' }
+    ]
+  },
+  {
+    id: 'js-3',
+    subject: 'javascript',
+    difficulty: 'advanced',
+    question: 'Create a closure that maintains a private counter and returns an object with increment, decrement, and getValue methods',
+    options: [],
+    correctAnswer: 0,
+    explanation: 'Closures allow functions to access variables from their outer scope even after the outer function has returned. This enables data privacy and encapsulation.',
+    xpReward: 150,
+    coinReward: 30,
+    hint: 'Create a function that returns an object with methods that access a private variable in the outer scope',
+    language: 'javascript',
+    codeTemplate: `// Create a counter with closure
+function createCounter() {
+    // Private variable here
+    
+    // Return object with methods
+    return {
+        increment: function() {
+            // Your code here
+        },
+        decrement: function() {
+            // Your code here
+        },
+        getValue: function() {
+            // Your code here
+        }
+    };
+}
+
+// Test your counter
+const counter = createCounter();
+counter.increment();
+counter.increment();
+console.log(counter.getValue()); // Should output 2`,
+    expectedOutput: '2'
+  },
+  {
+    id: 'html-2',
+    subject: 'html',
+    difficulty: 'intermediate',
+    question: 'Create a form with input fields for name, email, and a submit button. Include proper labels and form validation attributes.',
+    options: [],
+    correctAnswer: 0,
+    explanation: 'HTML forms use the <form> element with <input> elements for user input. Labels improve accessibility, and validation attributes provide client-side validation.',
+    xpReward: 100,
+    coinReward: 20,
+    hint: 'Use <form>, <label>, <input> with type and required attributes, and a submit button',
+    language: 'html',
+    codeTemplate: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+</head>
+<body>
+    <h1>Contact Form</h1>
+    <!-- Create your form here -->
+    
+</body>
+</html>`,
+    expectedOutput: 'A form with name, email inputs and submit button'
   }
 ];
 

@@ -7,7 +7,7 @@ import { TournamentCard } from './components/Tournament/TournamentCard';
 import { BobTheBot } from './components/Bot/BobTheBot';
 import { StatCard } from './components/Dashboard/StatCard';
 import { QuizInterface } from './components/Quiz/QuizInterface';
-import { mockUser, mockGames, mockTournaments, mockQuestions } from './data/mockData';
+import { mockUser, mockGames, mockTournaments, mockQuestions, mockCodingQuestions } from './data/mockData';
 import { Game, Tournament, Question, BobMessage } from './types';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp } from 'lucide-react';
 
@@ -140,9 +140,14 @@ function App() {
   ];
 
   if (currentView === 'quiz' && selectedGame) {
+    // Use coding questions for coding subjects, regular questions for others
+    const questionsToUse = ['html', 'css', 'javascript', 'python'].includes(selectedGame.subject) 
+      ? mockCodingQuestions.filter(q => q.subject === selectedGame.subject)
+      : mockQuestions.filter(q => q.subject === selectedGame.subject);
+
     return (
       <QuizInterface
-        questions={mockQuestions}
+        questions={questionsToUse}
         onComplete={handleQuizComplete}
         onTriggerBobMessage={triggerBobMessage}
         onClose={() => {

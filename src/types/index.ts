@@ -86,7 +86,7 @@ export interface CodingQuestion extends Question {
   codeTemplate?: string;
   expectedOutput?: string;
   testCases?: TestCase[];
-  language: 'html' | 'css' | 'javascript' | 'python';
+  language: 'html' | 'css' | 'javascript' | 'python' | 'tailwind';
 }
 
 export interface TestCase {
