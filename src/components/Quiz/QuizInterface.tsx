@@ -114,7 +114,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
     setShowCodeEditor(true);
   };
 
-  const handleCodingComplete = (isCorrect: boolean, userCode: string) => {
+  const handleTailwindCodingComplete = (isCorrect: boolean, userCode: string) => {
     if (isCorrect) {
       setCorrectAnswers(prev => prev + 1);
       onTriggerBobMessage('celebration', 'Excellent coding! Your Tailwind CSS skills are impressive! 🎨');
@@ -135,7 +135,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
     return (
       <TailwindCodeEditor
         question={currentCodingQuestion}
-        onComplete={handleCodingComplete}
+        onComplete={handleTailwindCodingComplete}
         onTriggerBobMessage={onTriggerBobMessage}
         onClose={() => {
           setShowCodeEditor(false);
@@ -145,8 +145,8 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
     );
   }
 
-  // Handle coding question completion
-  const handleCodingComplete = (isCorrect: boolean, userCode: string) => {
+  // Handle general coding question completion
+  const handleGeneralCodingComplete = (isCorrect: boolean, userCode: string) => {
     if (isCorrect) {
       setCorrectAnswers(prev => prev + 1);
       onTriggerBobMessage('celebration', 'Excellent coding! Your solution works perfectly! 🎉');
@@ -168,7 +168,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({
           language: currentQuestion.subject as 'html' | 'css' | 'javascript' | 'python',
           codeTemplate: currentQuestion.hint ? `// ${currentQuestion.hint}\n\n` : undefined
         }}
-        onComplete={handleCodingComplete}
+        onComplete={handleGeneralCodingComplete}
         onTriggerBobMessage={onTriggerBobMessage}
         onClose={onClose}
       />
