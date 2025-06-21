@@ -74,12 +74,7 @@ export interface AutomationSequence {
 }
 
 class ConstantContactService {
-  private apiUrl = '/api/constant-contact'; // Your backend API endpoint
-  private apiKey: string;
-
-  constructor() {
-    this.apiKey = process.env.CONSTANT_CONTACT_API_KEY || '';
-  }
+  private apiUrl = '/api/constant-contact'; // Netlify function endpoint
 
   // Contact Management
   async createContact(contact: Contact): Promise<Contact> {
@@ -88,7 +83,6 @@ class ConstantContactService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify(contact),
       });
@@ -111,7 +105,6 @@ class ConstantContactService {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify(updates),
       });
@@ -131,9 +124,7 @@ class ConstantContactService {
   async getContact(email: string): Promise<Contact | null> {
     try {
       const response = await fetch(`${this.apiUrl}/contacts?email=${encodeURIComponent(email)}`, {
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
+        method: 'GET',
       });
 
       if (!response.ok) {
@@ -155,9 +146,6 @@ class ConstantContactService {
     try {
       const response = await fetch(`${this.apiUrl}/contacts/${contactId}/lists/${listId}`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
       });
 
       if (!response.ok) {
@@ -173,9 +161,6 @@ class ConstantContactService {
     try {
       const response = await fetch(`${this.apiUrl}/contacts/${contactId}/lists/${listId}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
       });
 
       if (!response.ok) {
@@ -194,7 +179,6 @@ class ConstantContactService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({ name, description }),
       });
@@ -213,11 +197,7 @@ class ConstantContactService {
 
   async getLists(): Promise<ContactList[]> {
     try {
-      const response = await fetch(`${this.apiUrl}/lists`, {
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
-      });
+      const response = await fetch(`${this.apiUrl}/lists`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch lists');
@@ -238,7 +218,6 @@ class ConstantContactService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify(campaign),
       });
@@ -259,9 +238,6 @@ class ConstantContactService {
     try {
       const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}/send`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
       });
 
       if (!response.ok) {
@@ -279,7 +255,6 @@ class ConstantContactService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({ scheduledDate }),
       });
@@ -295,11 +270,7 @@ class ConstantContactService {
 
   async getCampaignStats(campaignId: string): Promise<EmailCampaign['stats']> {
     try {
-      const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}/stats`, {
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
-      });
+      const response = await fetch(`${this.apiUrl}/campaigns/${campaignId}/stats`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch campaign stats');
@@ -320,7 +291,6 @@ class ConstantContactService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify(automation),
       });
@@ -341,9 +311,6 @@ class ConstantContactService {
     try {
       const response = await fetch(`${this.apiUrl}/automations/${automationId}/activate`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-        },
       });
 
       if (!response.ok) {
