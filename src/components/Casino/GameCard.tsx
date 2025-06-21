@@ -11,10 +11,19 @@ interface GameCardProps {
 export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'basic': return 'text-green-400 bg-green-400/20';
-      case 'intermediate': return 'text-yellow-400 bg-yellow-400/20';
-      case 'advanced': return 'text-red-400 bg-red-400/20';
+      case 'basic': return 'text-green-400 bg-green-400/20 border border-green-400/30';
+      case 'intermediate': return 'text-yellow-400 bg-yellow-400/20 border border-yellow-400/30';
+      case 'advanced': return 'text-red-400 bg-red-400/20 border border-red-400/30';
       default: return 'text-gray-400 bg-gray-400/20';
+    }
+  };
+
+  const getDifficultyLabel = (difficulty: string) => {
+    switch (difficulty) {
+      case 'basic': return 'BEGINNER';
+      case 'intermediate': return 'INTERMEDIATE';
+      case 'advanced': return 'ADVANCED';
+      default: return difficulty.toUpperCase();
     }
   };
 
@@ -48,7 +57,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
             <div className="text-2xl">{getSubjectEmoji(game.subject)}</div>
           </div>
           <div className={`px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(game.difficulty)}`}>
-            {game.difficulty.toUpperCase()}
+            {getDifficultyLabel(game.difficulty)}
           </div>
         </div>
 

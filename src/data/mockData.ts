@@ -179,6 +179,110 @@ export const mockQuestions: Question[] = [
     explanation: 'Iron (Fe) has 26 electrons. Its electron configuration is [Ar] 3d⁶ 4s², following the Aufbau principle.',
     xpReward: 100,
     coinReward: 25
+  },
+  // Additional coding questions for different difficulty levels
+  {
+    id: '10',
+    subject: 'html',
+    difficulty: 'basic',
+    question: 'Which HTML tag is used to create a hyperlink?',
+    options: ['<link>', '<a>', '<href>', '<url>'],
+    correctAnswer: 1,
+    explanation: 'The <a> tag (anchor tag) is used to create hyperlinks. The href attribute specifies the URL of the page the link goes to.',
+    xpReward: 50,
+    coinReward: 10
+  },
+  {
+    id: '11',
+    subject: 'css',
+    difficulty: 'basic',
+    question: 'Which CSS property is used to change the text color?',
+    options: ['text-color', 'font-color', 'color', 'text-style'],
+    correctAnswer: 2,
+    explanation: 'The "color" property in CSS is used to set the color of text. For example: color: red; or color: #ff0000;',
+    xpReward: 50,
+    coinReward: 10
+  },
+  {
+    id: '12',
+    subject: 'javascript',
+    difficulty: 'intermediate',
+    question: 'What does the following code return: typeof null?',
+    options: ['"null"', '"undefined"', '"object"', '"boolean"'],
+    correctAnswer: 2,
+    explanation: 'In JavaScript, typeof null returns "object". This is actually a well-known bug in JavaScript that has been kept for backward compatibility.',
+    xpReward: 75,
+    coinReward: 15
+  },
+  {
+    id: '13',
+    subject: 'python',
+    difficulty: 'intermediate',
+    question: 'What is the result of [1, 2, 3] * 2 in Python?',
+    options: ['[2, 4, 6]', '[1, 2, 3, 1, 2, 3]', 'Error', '[1, 2, 3, 2]'],
+    correctAnswer: 1,
+    explanation: 'In Python, multiplying a list by an integer repeats the list that many times. So [1, 2, 3] * 2 creates [1, 2, 3, 1, 2, 3].',
+    xpReward: 75,
+    coinReward: 15
+  },
+  {
+    id: '14',
+    subject: 'html',
+    difficulty: 'advanced',
+    question: 'Which HTML5 semantic element represents the main content of a document?',
+    options: ['<content>', '<main>', '<primary>', '<section>'],
+    correctAnswer: 1,
+    explanation: 'The <main> element represents the dominant content of the <body> of a document. It excludes content that is repeated across documents like navigation, headers, footers.',
+    xpReward: 100,
+    coinReward: 25
+  },
+  {
+    id: '15',
+    subject: 'css',
+    difficulty: 'advanced',
+    question: 'What does the CSS property "justify-content: space-between" do in flexbox?',
+    options: [
+      'Centers items with equal space around them',
+      'Distributes items evenly with first item at start, last at end',
+      'Aligns items to the start of the container',
+      'Stretches items to fill the container'
+    ],
+    correctAnswer: 1,
+    explanation: 'justify-content: space-between distributes flex items evenly along the main axis, with the first item at the start and the last item at the end, and equal space between items.',
+    xpReward: 100,
+    coinReward: 25
+  },
+  {
+    id: '16',
+    subject: 'javascript',
+    difficulty: 'advanced',
+    question: 'What is a closure in JavaScript?',
+    options: [
+      'A way to close browser windows',
+      'A function that has access to variables in its outer scope',
+      'A method to end function execution',
+      'A type of loop structure'
+    ],
+    correctAnswer: 1,
+    explanation: 'A closure is a function that has access to variables in its outer (enclosing) scope even after the outer function has returned. This allows for data privacy and function factories.',
+    xpReward: 100,
+    coinReward: 25
+  },
+  {
+    id: '17',
+    subject: 'python',
+    difficulty: 'advanced',
+    question: 'What does the @property decorator do in Python?',
+    options: [
+      'Creates a private variable',
+      'Allows a method to be accessed like an attribute',
+      'Defines a class property',
+      'Creates a static method'
+    ],
+    correctAnswer: 1,
+    explanation: 'The @property decorator allows you to define a method that can be accessed like an attribute, providing a way to implement getters and setters in a Pythonic way.',
+    xpReward: 100,
+    coinReward: 25
   }
 ];
 
@@ -257,10 +361,11 @@ export const mockTournaments: Tournament[] = [
 ];
 
 export const mockGames: Game[] = [
+  // BEGINNER LEVEL GAMES
   {
     id: '1',
-    title: 'Mathematics Mastery',
-    description: 'From basic arithmetic to advanced calculus - test your mathematical prowess!',
+    title: 'Math Basics',
+    description: 'Learn fundamental arithmetic operations and basic mathematical concepts.',
     subject: 'mathematics',
     difficulty: 'basic',
     type: 'quiz',
@@ -269,20 +374,77 @@ export const mockGames: Game[] = [
     icon: '🧮'
   },
   {
-    id: '2',
-    title: 'Advanced Math Challenge',
-    description: 'Tackle complex mathematical concepts including calculus, algebra, and geometry.',
-    subject: 'mathematics',
-    difficulty: 'advanced',
+    id: '7',
+    title: 'HTML Fundamentals',
+    description: 'Master the building blocks of the web with HTML structure and semantics.',
+    subject: 'html',
+    difficulty: 'basic',
     type: 'challenge',
-    minBet: 50,
-    maxBet: 500,
+    minBet: 15,
+    maxBet: 150,
+    icon: '🌐'
+  },
+  {
+    id: '13',
+    title: 'Physics Basics',
+    description: 'Explore fundamental physics concepts like motion, forces, and energy.',
+    subject: 'physics',
+    difficulty: 'basic',
+    type: 'quiz',
+    minBet: 15,
+    maxBet: 150,
+    icon: '⚡'
+  },
+  {
+    id: '14',
+    title: 'Chemistry Basics',
+    description: 'Learn about atoms, molecules, and basic chemical reactions.',
+    subject: 'chemistry',
+    difficulty: 'basic',
+    type: 'quiz',
+    minBet: 15,
+    maxBet: 150,
+    icon: '🧪'
+  },
+  {
+    id: '15',
+    title: 'Python Basics',
+    description: 'Start your programming journey with Python fundamentals and syntax.',
+    subject: 'python',
+    difficulty: 'basic',
+    type: 'quiz',
+    minBet: 20,
+    maxBet: 200,
+    icon: '🐍'
+  },
+  {
+    id: '16',
+    title: 'CSS Fundamentals',
+    description: 'Learn styling basics, colors, fonts, and simple layouts.',
+    subject: 'css',
+    difficulty: 'basic',
+    type: 'quiz',
+    minBet: 15,
+    maxBet: 150,
+    icon: '🎨'
+  },
+
+  // INTERMEDIATE LEVEL GAMES
+  {
+    id: '2',
+    title: 'Algebra & Geometry',
+    description: 'Solve equations, work with functions, and explore geometric relationships.',
+    subject: 'mathematics',
+    difficulty: 'intermediate',
+    type: 'challenge',
+    minBet: 30,
+    maxBet: 300,
     icon: '📐'
   },
   {
     id: '3',
     title: 'Physics Challenge',
-    description: 'Test your physics knowledge in this strategic challenge game.',
+    description: 'Test your physics knowledge with mechanics, thermodynamics, and waves.',
     subject: 'physics',
     difficulty: 'intermediate',
     type: 'challenge',
@@ -291,20 +453,9 @@ export const mockGames: Game[] = [
     icon: '⚡'
   },
   {
-    id: '4',
-    title: 'Quantum Physics Quest',
-    description: 'Dive deep into the mysterious world of quantum mechanics and relativity.',
-    subject: 'physics',
-    difficulty: 'advanced',
-    type: 'puzzle',
-    minBet: 75,
-    maxBet: 750,
-    icon: '🔬'
-  },
-  {
     id: '5',
-    title: 'Chemistry Quest',
-    description: 'Match molecular structures to win big in this exciting puzzle game.',
+    title: 'Organic Chemistry',
+    description: 'Explore molecular structures, reactions, and chemical bonding.',
     subject: 'chemistry',
     difficulty: 'intermediate',
     type: 'puzzle',
@@ -313,32 +464,9 @@ export const mockGames: Game[] = [
     icon: '🧪'
   },
   {
-    id: '6',
-    title: 'Organic Chemistry Lab',
-    description: 'Master complex organic reactions and molecular synthesis pathways.',
-    subject: 'chemistry',
-    difficulty: 'advanced',
-    type: 'challenge',
-    minBet: 60,
-    maxBet: 600,
-    icon: '⚗️'
-  },
-  // Coding Games
-  {
-    id: '7',
-    title: 'HTML Fundamentals',
-    description: 'Master the building blocks of the web with HTML structure and semantics.',
-    subject: 'html',
-    difficulty: 'basic',
-    type: 'quiz',
-    minBet: 15,
-    maxBet: 150,
-    icon: '🌐'
-  },
-  {
     id: '8',
     title: 'CSS Styling Master',
-    description: 'Create beautiful, responsive designs with advanced CSS techniques.',
+    description: 'Master flexbox, grid layouts, and responsive design principles.',
     subject: 'css',
     difficulty: 'intermediate',
     type: 'challenge',
@@ -347,20 +475,9 @@ export const mockGames: Game[] = [
     icon: '🎨'
   },
   {
-    id: '9',
-    title: 'JavaScript Ninja',
-    description: 'Become a JavaScript expert with advanced programming concepts and ES6+.',
-    subject: 'javascript',
-    difficulty: 'advanced',
-    type: 'challenge',
-    minBet: 50,
-    maxBet: 500,
-    icon: '⚡'
-  },
-  {
     id: '10',
     title: 'Python Programming',
-    description: 'Learn Python from basics to advanced concepts including data structures.',
+    description: 'Learn data structures, functions, and object-oriented programming.',
     subject: 'python',
     difficulty: 'intermediate',
     type: 'quiz',
@@ -369,25 +486,93 @@ export const mockGames: Game[] = [
     icon: '🐍'
   },
   {
-    id: '11',
-    title: 'Web Development Bootcamp',
-    description: 'Full-stack web development challenge combining HTML, CSS, and JavaScript.',
+    id: '17',
+    title: 'JavaScript Essentials',
+    description: 'Master DOM manipulation, events, and asynchronous programming.',
+    subject: 'javascript',
+    difficulty: 'intermediate',
+    type: 'challenge',
+    minBet: 35,
+    maxBet: 350,
+    icon: '⚡'
+  },
+
+  // ADVANCED LEVEL GAMES
+  {
+    id: '4',
+    title: 'Calculus & Advanced Math',
+    description: 'Tackle derivatives, integrals, and complex mathematical analysis.',
+    subject: 'mathematics',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 50,
+    maxBet: 500,
+    icon: '📐'
+  },
+  {
+    id: '18',
+    title: 'Quantum Physics Quest',
+    description: 'Dive deep into quantum mechanics, relativity, and particle physics.',
+    subject: 'physics',
+    difficulty: 'advanced',
+    type: 'puzzle',
+    minBet: 75,
+    maxBet: 750,
+    icon: '🔬'
+  },
+  {
+    id: '6',
+    title: 'Advanced Chemistry Lab',
+    description: 'Master complex reactions, thermodynamics, and molecular synthesis.',
+    subject: 'chemistry',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 60,
+    maxBet: 600,
+    icon: '⚗️'
+  },
+  {
+    id: '9',
+    title: 'JavaScript Mastery',
+    description: 'Advanced concepts: closures, prototypes, design patterns, and frameworks.',
     subject: 'javascript',
     difficulty: 'advanced',
     type: 'challenge',
-    minBet: 75,
-    maxBet: 750,
-    icon: '💻'
+    minBet: 50,
+    maxBet: 500,
+    icon: '⚡'
+  },
+  {
+    id: '11',
+    title: 'Advanced CSS Techniques',
+    description: 'CSS animations, custom properties, advanced selectors, and performance.',
+    subject: 'css',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 45,
+    maxBet: 450,
+    icon: '🎨'
   },
   {
     id: '12',
     title: 'Python Data Science',
-    description: 'Advanced Python for data analysis, algorithms, and machine learning concepts.',
+    description: 'Advanced algorithms, data analysis, and machine learning fundamentals.',
     subject: 'python',
     difficulty: 'advanced',
     type: 'puzzle',
     minBet: 60,
     maxBet: 600,
     icon: '📊'
+  },
+  {
+    id: '19',
+    title: 'Full-Stack Web Development',
+    description: 'Complex web applications combining HTML, CSS, JavaScript, and APIs.',
+    subject: 'html',
+    difficulty: 'advanced',
+    type: 'challenge',
+    minBet: 70,
+    maxBet: 700,
+    icon: '💻'
   }
 ];

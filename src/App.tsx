@@ -126,44 +126,89 @@ function App() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Gaming Area */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Scholar Games */}
-            <CasinoTable className="p-8">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 bg-casino-gold-500 rounded-xl">
-                    <Gamepad2 className="w-8 h-8 text-gray-900" />
-                  </div>
-                  <div>
-                    <h2 className="text-3xl font-heading font-bold text-white">
-                      Scholar Games
-                    </h2>
-                    <p className="text-casino-green-200">
-                      Choose your subject and start learning!
-                    </p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-casino-green-200 text-sm">Available Games</p>
-                  <p className="text-2xl font-bold text-white">{mockGames.length}</p>
-                </div>
-              </div>
+            {/* Difficulty Categories */}
+            {['basic', 'intermediate', 'advanced'].map((difficulty, categoryIndex) => {
+              const categoryGames = mockGames.filter(game => game.difficulty === difficulty);
+              const categoryColors = {
+                basic: { bg: 'bg-green-500', text: 'text-green-400', border: 'border-green-500/30' },
+                intermediate: { bg: 'bg-yellow-500', text: 'text-yellow-400', border: 'border-yellow-500/30' },
+                advanced: { bg: 'bg-red-500', text: 'text-red-400', border: 'border-red-500/30' }
+              };
+              const categoryIcons = {
+                basic: '🌱',
+                intermediate: '🚀',
+                advanced: '🏆'
+              };
+              const categoryTitles = {
+                basic: 'Beginners',
+                intermediate: 'Intermediate',
+                advanced: 'Advanced'
+              };
+              const categoryDescriptions = {
+                basic: 'Perfect for starting your learning journey',
+                intermediate: 'Ready to take on more challenges',
+                advanced: 'Master-level content for experts'
+              };
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {mockGames.map((game, index) => (
-                  <motion.div
-                    key={game.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <GameCard
-                      game={game}
-                      onPlay={handlePlayGame}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </CasinoTable>
+              return (
+                <motion.div
+                  key={difficulty}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
+                >
+                  <CasinoTable className="p-8">
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="flex items-center space-x-4">
+                        <div className={`p-4 ${categoryColors[difficulty as keyof typeof categoryColors].bg} rounded-xl shadow-lg`}>
+                          <span className="text-3xl">{categoryIcons[difficulty as keyof typeof categoryIcons]}</span>
+                        </div>
+                        <div>
+                          <h2 className="text-3xl font-heading font-bold text-white">
+                            {categoryTitles[difficulty as keyof typeof categoryTitles]}
+                          </h2>
+                          <p className="text-casino-green-200">
+                            {categoryDescriptions[difficulty as keyof typeof categoryDescriptions]}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-casino-green-200 text-sm">Available Games</p>
+                        <p className="text-2xl font-bold text-white">{categoryGames.length}</p>
+                      </div>
+                    </div>
+
+                    {categoryGames.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {categoryGames.map((game, index) => (
+                          <motion.div
+                            key={game.id}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                          >
+                            <GameCard
+                              game={game}
+                              onPlay={handlePlayGame}
+                            />
+                          </motion.div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-12">
+                        <div className="text-6xl mb-4">🚧</div>
+                        <h3 className="text-xl font-semibold text-gray-300 mb-2">
+                          Coming Soon!
+                        </h3>
+                        <p className="text-gray-400">
+                          More {difficulty} level games are being prepared for you.
+                        </p>
+                      </div>
+                    )}
+                  </CasinoTable>
+                </motion.div>
+              );
+            })}
 
             {/* Learning Progress */}
             <CasinoTable className="p-8">
