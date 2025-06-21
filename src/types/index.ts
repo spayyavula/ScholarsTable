@@ -37,6 +37,7 @@ export interface Question {
   explanation: string;
   xpReward: number;
   coinReward: number;
+  hint?: string;
 }
 
 export interface Tournament {

@@ -90,7 +90,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: '15 × 8 = 120. You can solve this by breaking it down: (10 × 8) + (5 × 8) = 80 + 40 = 120',
     xpReward: 50,
-    coinReward: 10
+    coinReward: 10,
+    hint: 'Try breaking 15 into 10 + 5, then multiply each part by 8 separately!'
   },
   {
     id: '2',
@@ -101,7 +102,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 0,
     explanation: 'Using the power rule: d/dx(x³) = 3x², d/dx(2x²) = 4x, d/dx(-5x) = -5, d/dx(3) = 0. So the derivative is 3x² + 4x - 5.',
     xpReward: 75,
-    coinReward: 15
+    coinReward: 15,
+    hint: 'Remember the power rule: d/dx(xⁿ) = n·xⁿ⁻¹. Apply it to each term separately!'
   },
   {
     id: '3',
@@ -112,7 +114,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'This is a fundamental limit in calculus. lim(x→0) (sin x)/x = 1. This can be proven using the squeeze theorem or L\'Hôpital\'s rule.',
     xpReward: 100,
-    coinReward: 25
+    coinReward: 25,
+    hint: 'This is a famous limit! Think about the unit circle and what happens to sin(x) when x is very small.'
   },
   {
     id: '4',
@@ -123,7 +126,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'Kinetic energy is the energy of motion. The formula is KE = ½mv², where m is mass and v is velocity.',
     xpReward: 50,
-    coinReward: 10
+    coinReward: 10,
+    hint: 'Energy of motion involves mass and velocity squared. Don\'t forget the fraction!'
   },
   {
     id: '5',
@@ -134,7 +138,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 0,
     explanation: 'The speed of light in vacuum is exactly 299,792,458 meters per second, which is often approximated as 3 × 10⁸ m/s.',
     xpReward: 75,
-    coinReward: 15
+    coinReward: 15,
+    hint: 'It\'s very close to 300 million m/s, but the exact value is slightly less. Look for the most precise number!'
   },
   {
     id: '6',
@@ -145,7 +150,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 0,
     explanation: 'The Heisenberg Uncertainty Principle states that Δx·Δp ≥ ℏ/2, where Δx is position uncertainty, Δp is momentum uncertainty, and ℏ is reduced Planck constant.',
     xpReward: 100,
-    coinReward: 25
+    coinReward: 25,
+    hint: 'The principle sets a minimum limit on uncertainty. Look for the "greater than or equal to" symbol!'
   },
   {
     id: '7',
@@ -156,7 +162,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 2,
     explanation: 'Gold\'s chemical symbol is Au, derived from the Latin word "aurum" meaning gold.',
     xpReward: 50,
-    coinReward: 10
+    coinReward: 10,
+    hint: 'Think about the Latin word for gold - "aurum". The symbol comes from this ancient name!'
   },
   {
     id: '8',
@@ -167,7 +174,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'Pure water at 25°C has a pH of 7, which is considered neutral. This is because [H⁺] = [OH⁻] = 1×10⁻⁷ M.',
     xpReward: 75,
-    coinReward: 15
+    coinReward: 15,
+    hint: 'Pure water is neither acidic nor basic - it\'s perfectly neutral on the pH scale!'
   },
   {
     id: '9',
@@ -178,7 +186,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 0,
     explanation: 'Iron (Fe) has 26 electrons. Its electron configuration is [Ar] 3d⁶ 4s², following the Aufbau principle.',
     xpReward: 100,
-    coinReward: 25
+    coinReward: 25,
+    hint: 'Iron has 26 electrons. After Argon (18 electrons), you need to place 8 more. Remember 4s fills before 3d!'
   },
   // Additional coding questions for different difficulty levels
   {
@@ -190,7 +199,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'The <a> tag (anchor tag) is used to create hyperlinks. The href attribute specifies the URL of the page the link goes to.',
     xpReward: 50,
-    coinReward: 10
+    coinReward: 10,
+    hint: 'Think "anchor" - what letter does that start with? This tag "anchors" links to other pages!'
   },
   {
     id: '11',
@@ -201,7 +211,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 2,
     explanation: 'The "color" property in CSS is used to set the color of text. For example: color: red; or color: #ff0000;',
     xpReward: 50,
-    coinReward: 10
+    coinReward: 10,
+    hint: 'The simplest and most direct property name - just one word that describes exactly what it does!'
   },
   {
     id: '12',
@@ -212,7 +223,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 2,
     explanation: 'In JavaScript, typeof null returns "object". This is actually a well-known bug in JavaScript that has been kept for backward compatibility.',
     xpReward: 75,
-    coinReward: 15
+    coinReward: 15,
+    hint: 'This is a famous JavaScript quirk! null is treated as a primitive, but typeof returns something unexpected...'
   },
   {
     id: '13',
@@ -223,7 +235,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'In Python, multiplying a list by an integer repeats the list that many times. So [1, 2, 3] * 2 creates [1, 2, 3, 1, 2, 3].',
     xpReward: 75,
-    coinReward: 15
+    coinReward: 15,
+    hint: 'In Python, multiplying a list doesn\'t multiply the elements - it repeats the entire list!'
   },
   {
     id: '14',
@@ -234,7 +247,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'The <main> element represents the dominant content of the <body> of a document. It excludes content that is repeated across documents like navigation, headers, footers.',
     xpReward: 100,
-    coinReward: 25
+    coinReward: 25,
+    hint: 'Think about what you\'d call the primary, central content of a webpage. The tag name is exactly what you\'d expect!'
   },
   {
     id: '15',
@@ -250,7 +264,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'justify-content: space-between distributes flex items evenly along the main axis, with the first item at the start and the last item at the end, and equal space between items.',
     xpReward: 100,
-    coinReward: 25
+    coinReward: 25,
+    hint: 'The key word is "between" - think about what goes between the items, and where the first and last items are positioned!'
   },
   {
     id: '16',
@@ -266,7 +281,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'A closure is a function that has access to variables in its outer (enclosing) scope even after the outer function has returned. This allows for data privacy and function factories.',
     xpReward: 100,
-    coinReward: 25
+    coinReward: 25,
+    hint: 'Think about a function that "closes over" variables from its surrounding environment, keeping them accessible!'
   },
   {
     id: '17',
@@ -282,7 +298,8 @@ export const mockQuestions: Question[] = [
     correctAnswer: 1,
     explanation: 'The @property decorator allows you to define a method that can be accessed like an attribute, providing a way to implement getters and setters in a Pythonic way.',
     xpReward: 100,
-    coinReward: 25
+    coinReward: 25,
+    hint: 'This decorator makes a method behave like a simple attribute - you can access it without parentheses!'
   }
 ];
 

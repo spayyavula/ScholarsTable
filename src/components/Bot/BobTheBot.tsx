@@ -6,100 +6,26 @@ import { BobMessage } from '../../types';
 interface BobTheBotProps {
   currentContext?: string;
   userLevel: number;
-  recentActivity?: string;
+  currentMessage: BobMessage | null;
+  messageHistory: BobMessage[];
+  onTriggerMessage: (type: BobMessage['type'], customMessage?: string) => void;
 }
 
 export const BobTheBot: React.FC<BobTheBotProps> = ({ 
   currentContext = 'lobby', 
   userLevel,
-  recentActivity 
+  currentMessage,
+  messageHistory,
+  onTriggerMessage
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentMessage, setCurrentMessage] = useState<BobMessage | null>(null);
-  const [messageHistory, setMessageHistory] = useState<BobMessage[]>([]);
-
-  const bobMessages = {
-    welcome: [
-      "Welcome back to Scholars Table! Ready to win some knowledge?",
-      "Hey there, scholar! I see you're level " + userLevel + ". Impressive!",
-      "The tables are hot tonight! Which subject calls to you?",
-      "Ready to code your way to victory? Our programming challenges await!",
-      "From HTML to Python, we've got all the coding skills you need!"
-    ],
-    encouragement: [
-      "Don't worry about that wrong answer - every mistake is a learning opportunity!",
-      "You're getting better with each question. Keep it up!",
-      "Remember, even Einstein made mistakes. What matters is that you keep trying!",
-      "Debugging is just another word for learning! Keep coding!",
-      "Every programmer started with their first 'Hello World' - you're doing great!"
-    ],
-    celebration: [
-      "Fantastic! You're on fire! 🔥",
-      "That's what I call a winning streak! Well done!",
-      "You just earned some serious bragging rights!",
-      "Your code is as clean as your answers! Excellent work!",
-      "You're coding like a pro! Keep up the amazing work!"
-    ],
-    tips: [
-      "Pro tip: Take your time to read each question carefully before answering.",
-      "Did you know? Playing different difficulty levels helps reinforce concepts!",
-      "Tournament strategy: Focus on accuracy over speed for better scores.",
-      "Coding tip: Practice makes perfect - try different programming languages!",
-      "Remember: Good code is readable code. Think about clarity and structure!"
-    ],
-    hints: [
-      "Having trouble? Try breaking the problem into smaller parts.",
-      "Remember to check the units in physics problems - they often hold clues!",
-      "For chemistry questions, think about electron configurations step by step.",
-      "For coding questions, think about the syntax and logic step by step.",
-      "HTML tip: Remember that structure comes first, then styling with CSS!"
-    ]
-  };
-
-  const generateMessage = (type: BobMessage['type']) => {
-    const messages = bobMessages[type] || bobMessages.welcome;
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    
-    return {
-      id: Date.now().toString(),
-      type,
-      message: randomMessage,
-      timestamp: new Date()
-    };
-  };
-
-  useEffect(() => {
-    // Generate welcome message on component mount
-    const welcomeMessage = generateMessage('tip');
-    setCurrentMessage(welcomeMessage);
-    setMessageHistory([welcomeMessage]);
-  }, []);
-
-  useEffect(() => {
-    // Generate contextual messages based on activity
-    if (recentActivity) {
-      let messageType: BobMessage['type'] = 'encouragement';
-      
-      if (recentActivity.includes('correct')) {
-        messageType = 'celebration';
-      } else if (recentActivity.includes('wrong')) {
-        messageType = 'encouragement';
-      } else if (recentActivity.includes('hint')) {
-        messageType = 'tips';
-      }
-
-      const newMessage = generateMessage(messageType);
-      setCurrentMessage(newMessage);
-      setMessageHistory(prev => [newMessage, ...prev.slice(0, 4)]);
-    }
-  }, [recentActivity]);
 
   const getIconForMessageType = (type: BobMessage['type']) => {
     switch (type) {
-      case 'tip': return <Lightbulb className="w-4 h-4 text-yellow-400" />;
+      case 'tips': return <Lightbulb className="w-4 h-4 text-yellow-400" />;
       case 'encouragement': return <Heart className="w-4 h-4 text-red-400" />;
       case 'celebration': return <Trophy className="w-4 h-4 text-casino-gold-400" />;
-      case 'hint': return <MessageCircle className="w-4 h-4 text-blue-400" />;
+      case 'hints': return <MessageCircle className="w-4 h-4 text-blue-400" />;
       default: return <MessageCircle className="w-4 h-4 text-gray-400" />;
     }
   };
@@ -204,9 +130,7 @@ export const BobTheBot: React.FC<BobTheBotProps> = ({
               <div className="grid grid-cols-2 gap-2">
                 <motion.button
                   onClick={() => {
-                    const tipMessage = generateMessage('tips');
-                    setCurrentMessage(tipMessage);
-                    setMessageHistory(prev => [tipMessage, ...prev.slice(0, 4)]);
+                    onTriggerMessage('tips');
                   }}
                   className="bg-blue-600 hover:bg-blue-500 text-white text-xs py-2 px-3 rounded-lg transition-colors"
                   whileHover={{ scale: 1.02 }}
@@ -216,9 +140,7 @@ export const BobTheBot: React.FC<BobTheBotProps> = ({
                 </motion.button>
                 <motion.button
                   onClick={() => {
-                    const hintMessage = generateMessage('hints');
-                    setCurrentMessage(hintMessage);
-                    setMessageHistory(prev => [hintMessage, ...prev.slice(0, 4)]);
+                    onTriggerMessage('hints');
                   }}
                   className="bg-green-600 hover:bg-green-500 text-white text-xs py-2 px-3 rounded-lg transition-colors"
                   whileHover={{ scale: 1.02 }}

@@ -8,24 +8,83 @@ import { BobTheBot } from './components/Bot/BobTheBot';
 import { StatCard } from './components/Dashboard/StatCard';
 import { QuizInterface } from './components/Quiz/QuizInterface';
 import { mockUser, mockGames, mockTournaments, mockQuestions } from './data/mockData';
-import { Game, Tournament, Question } from './types';
+import { Game, Tournament, Question, BobMessage } from './types';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp } from 'lucide-react';
 
 function App() {
   const [currentView, setCurrentView] = useState<'lobby' | 'quiz'>('lobby');
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [user, setUser] = useState(mockUser);
-  const [bobActivity, setBobActivity] = useState<string>('');
+  const [currentBobMessage, setCurrentBobMessage] = useState<BobMessage | null>(null);
+  const [bobMessageHistory, setBobMessageHistory] = useState<BobMessage[]>([]);
+
+  const triggerBobMessage = (type: BobMessage['type'], customMessage?: string) => {
+    const bobMessages = {
+      welcome: [
+        "Welcome back to Scholars Table! Ready to win some knowledge?",
+        "Hey there, scholar! I see you're level " + user.level + ". Impressive!",
+        "The tables are hot tonight! Which subject calls to you?",
+        "Ready to code your way to victory? Our programming challenges await!",
+        "From HTML to Python, we've got all the coding skills you need!"
+      ],
+      encouragement: [
+        "Don't worry about that wrong answer - every mistake is a learning opportunity!",
+        "You're getting better with each question. Keep it up!",
+        "Remember, even Einstein made mistakes. What matters is that you keep trying!",
+        "Debugging is just another word for learning! Keep coding!",
+        "Every programmer started with their first 'Hello World' - you're doing great!"
+      ],
+      celebration: [
+        "Fantastic! You're on fire! 🔥",
+        "That's what I call a winning streak! Well done!",
+        "You just earned some serious bragging rights!",
+        "Your code is as clean as your answers! Excellent work!",
+        "You're coding like a pro! Keep up the amazing work!"
+      ],
+      tips: [
+        "Pro tip: Take your time to read each question carefully before answering.",
+        "Did you know? Playing different difficulty levels helps reinforce concepts!",
+        "Tournament strategy: Focus on accuracy over speed for better scores.",
+        "Coding tip: Practice makes perfect - try different programming languages!",
+        "Remember: Good code is readable code. Think about clarity and structure!"
+      ],
+      hints: [
+        "Having trouble? Try breaking the problem into smaller parts.",
+        "Remember to check the units in physics problems - they often hold clues!",
+        "For chemistry questions, think about electron configurations step by step.",
+        "For coding questions, think about the syntax and logic step by step.",
+        "HTML tip: Remember that structure comes first, then styling with CSS!"
+      ]
+    };
+
+    const messages = bobMessages[type] || bobMessages.welcome;
+    const messageText = customMessage || messages[Math.floor(Math.random() * messages.length)];
+    
+    const newMessage: BobMessage = {
+      id: Date.now().toString(),
+      type,
+      message: messageText,
+      timestamp: new Date()
+    };
+
+    setCurrentBobMessage(newMessage);
+    setBobMessageHistory(prev => [newMessage, ...prev.slice(0, 4)]);
+  };
+
+  // Initialize Bob with a welcome message
+  React.useEffect(() => {
+    triggerBobMessage('tips');
+  }, []);
 
   const handlePlayGame = (game: Game) => {
     setSelectedGame(game);
     setCurrentView('quiz');
-    setBobActivity('Starting game: ' + game.title);
+    triggerBobMessage('tips', `Starting ${game.title}! Remember to read each question carefully. Good luck!`);
   };
 
   const handleJoinTournament = (tournament: Tournament) => {
     console.log('Joining tournament:', tournament.title);
-    setBobActivity('Joined tournament: ' + tournament.title);
+    triggerBobMessage('celebration', `Joined tournament: ${tournament.title}! Show them what you've got!`);
   };
 
   const handleQuizComplete = (results: any) => {
@@ -41,7 +100,11 @@ function App() {
       }
     }));
     
-    setBobActivity(`Quiz completed! ${results.correctAnswers} correct answers`);
+    const accuracy = Math.round((results.correctAnswers / results.totalQuestions) * 100);
+    const message = accuracy >= 80 ? 
+      `Outstanding! ${results.correctAnswers}/${results.totalQuestions} correct (${accuracy}%)! You're a true scholar! 🏆` :
+      `Good effort! ${results.correctAnswers}/${results.totalQuestions} correct (${accuracy}%). Keep practicing and you'll improve! 💪`;
+    triggerBobMessage(accuracy >= 80 ? 'celebration' : 'encouragement', message);
     setCurrentView('lobby');
     setSelectedGame(null);
   };
@@ -81,6 +144,7 @@ function App() {
       <QuizInterface
         questions={mockQuestions}
         onComplete={handleQuizComplete}
+        onTriggerBobMessage={triggerBobMessage}
         onClose={() => {
           setCurrentView('lobby');
           setSelectedGame(null);
@@ -345,7 +409,9 @@ function App() {
       <BobTheBot
         currentContext="lobby"
         userLevel={user.level}
-        recentActivity={bobActivity}
+        currentMessage={currentBobMessage}
+        messageHistory={bobMessageHistory}
+        onTriggerMessage={triggerBobMessage}
       />
     </div>
   );

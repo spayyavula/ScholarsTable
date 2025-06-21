@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Star, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
-import { Question } from '../../types';
+import { Clock, Star, ArrowRight, CheckCircle, XCircle, Lightbulb } from 'lucide-react';
+import { Question, BobMessage } from '../../types';
 
 interface QuizInterfaceProps {
   questions: Question[];
   onComplete: (results: QuizResults) => void;
+  onTriggerBobMessage: (type: BobMessage['type'], customMessage?: string) => void;
   onClose: () => void;
 }
 
@@ -17,13 +18,19 @@ interface QuizResults {
   timeSpent: number;
 }
 
-export const QuizInterface: React.FC<QuizInterfaceProps> = ({ questions, onComplete, onClose }) => {
+export const QuizInterface: React.FC<QuizInterfaceProps> = ({ 
+  questions, 
+  onComplete, 
+  onTriggerBobMessage,
+  onClose 
+}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(30);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [hintUsedForCurrentQuestion, setHintUsedForCurrentQuestion] = useState(false);
   const [startTime] = useState(Date.now());
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -64,6 +71,7 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({ questions, onCompl
       setSelectedAnswer(null);
       setShowResult(false);
       setIsAnswered(false);
+      setHintUsedForCurrentQuestion(false);
       setTimeRemaining(30);
     } else {
       // Quiz completed
@@ -75,6 +83,13 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({ questions, onCompl
         timeSpent: Math.floor((Date.now() - startTime) / 1000)
       };
       onComplete(results);
+    }
+  };
+
+  const handleGetHint = () => {
+    if (currentQuestion.hint && !hintUsedForCurrentQuestion) {
+      onTriggerBobMessage('hints', currentQuestion.hint);
+      setHintUsedForCurrentQuestion(true);
     }
   };
 
@@ -112,6 +127,24 @@ export const QuizInterface: React.FC<QuizInterfaceProps> = ({ questions, onCompl
                 <Clock className="w-5 h-5 text-white" />
                 <span className="text-white font-semibold">{timeRemaining}s</span>
               </div>
+              {currentQuestion.hint && (
+                <motion.button
+                  onClick={handleGetHint}
+                  disabled={hintUsedForCurrentQuestion || isAnswered}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                    hintUsedForCurrentQuestion || isAnswered
+                      ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                      : 'bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-300 hover:text-yellow-200'
+                  }`}
+                  whileHover={!hintUsedForCurrentQuestion && !isAnswered ? { scale: 1.05 } : {}}
+                  whileTap={!hintUsedForCurrentQuestion && !isAnswered ? { scale: 0.95 } : {}}
+                >
+                  <Lightbulb className="w-4 h-4" />
+                  <span className="text-sm font-medium">
+                    {hintUsedForCurrentQuestion ? 'Hint Used' : 'Get Hint'}
+                  </span>
+                </motion.button>
+              )}
               <button
                 onClick={onClose}
                 className="text-white hover:text-gray-200 transition-colors"
